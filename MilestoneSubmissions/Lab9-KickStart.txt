@@ -25,6 +25,6 @@ Communication Plan: Our team plans to use Discord to communicate with each other
 
 Meeting Plan: Our weekly meeting with our TA is on Tuesdays from 6-7 pm. For our team meetings, it’ll be on Monday at 7pm over a Discord call. 
 
-Case Diagram: Check Images
+Case Diagram: Check Images -- Use Case Diagram.png
 
-Wireframes: Check Images
+Wireframes: Check Images -- GoogleChromeTest.png & WebsiteTest.png
