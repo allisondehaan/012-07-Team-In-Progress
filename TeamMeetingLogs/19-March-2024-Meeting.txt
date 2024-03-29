@@ -1,0 +1,12 @@
+Time: 6 - 6:21 on 3 March 2024
+
+Things Discussed:
+	Possible Features:
+        A notification system
+        Sorting system
+            By priority, name, soonest, latest
+        Possibly have a class section under each event
+        Registration
+        Login
+	Need to update case use diagram, as it is more like an activity diagram currently.
+	Start with the website, and then move to converting it into a chrome extension
