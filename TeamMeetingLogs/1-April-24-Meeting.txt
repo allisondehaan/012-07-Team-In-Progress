@@ -1,0 +1,12 @@
+Meeting began at 7:30, 30 minutes later than planned since a member had something come up and needed to delay meeting time.
+Topics discussed:
+	-When the current Scrum Cycle ends:
+		-Try our best to get as much done by Wednesday, and go from there.
+	-If last weeks lab was completed
+		-Concluded it should be fine 
+	-Where the meeting with the TA was on Tuesday of this week.
+	-Questions regarding styling after functionality being fine.
+	-If we need to use Bootstrap or CSS ourselves.
+		-A hybrid seems like the best option.
+		-Bootstrap cards for the sticky notes in seen in the wire frame.
+Meeting ended at 7:43. Total time of 13 minutes.
