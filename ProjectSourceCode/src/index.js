@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 //Session init
 app.use(
 	session({
-		secret: proccess.env.SESSION_SECRET,
+		secret: process.env.SESSION_SECRET,
 		saveUninitialized: true,
 		reSave:	true,
 	})
@@ -74,7 +74,7 @@ app.post('/login',(req,res)=>{
 	const query = 'select * from User where User.userName = $1 LIMIT 1';
 	const values = [username];
 	
-	const pass = await db.one(query,values)
+	const pass = db.one(query,values)
 	.then(data=>{
 		return data.passWordHash;
 	})
@@ -83,7 +83,7 @@ app.post('/login',(req,res)=>{
 		res.redirect('/register');
 	});
 	
-	const match = await bcrypt.compare(req.body.password,pass);
+	const match = bcrypt.compare(req.body.password,pass);
 	if( match ) {
 		req.session.user = user;
 		req.session.save();
