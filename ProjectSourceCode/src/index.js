@@ -15,13 +15,13 @@ app.use(express.static(__dirname + '/'));
 //ExpressHandlebars instance creation and configuration
 const hbs = handlebars.create({
 	extname: 'hbs',
-	layoutsDir: __dirname+'/views/layouts',
-	partialsDir: __dirname+'/views/partials',
+	layoutsDir: __dirname + '/views/layouts',
+	partialsDir: __dirname + '/views/partials',
 });
 //handlebars registering
-app.engine('hbs',hbs.engine);
-app.set('view engine','hbs');
-app.set('views',path.join(__dirname,'views'));
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json());
 
 //Session init
