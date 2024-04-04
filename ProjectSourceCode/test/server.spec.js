@@ -47,7 +47,14 @@ describe('Server!', () => {
       chai
       .request(server)
       .post('/add_user')
-      .send({idUser: 5, email:'johndoe@colorado.edu',userName: 'John Doe', firstName: 'John', lastName: 'Doe'})
+      .send({ 
+        email:'johndoe@colorado.edu',
+        userName: 'johndoe', 
+        passwordHash: 'hashedPassword',
+        firstName: 'John', 
+        lastName: 'Doe', 
+        Usercol: 'SomeValue',
+        idPref: 1})
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equals('Success');
@@ -66,7 +73,14 @@ describe('Server!', () => {
       chai
         .request(server)
         .post('/add_user')
-        .send({idUser: 5, email:'johndoe@colorado.edu',userName: 'John Doe', firstName: 'John', lastName: 'Doe'})
+        .send({
+          email:'', // providing empty email
+          userName: 'johndoe', 
+          passWordHash: 'hashedPassword',
+          firstName: 'John', 
+          lastName: 'Doe',
+          Usercol: 'SomeValue',
+          idPref: 1})
         .end((err, res) => {
           expect(res).to.have.status(400);
           expect(res.body.message).to.equals('Invalid input');
