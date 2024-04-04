@@ -11,7 +11,7 @@ CREATE TABLE Preferences(
 -- Table User
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS Users CASCADE;
-CREATE TABLE Users (
+CREATE TABLE users (
   idUser SERIAL PRIMARY KEY,
   email VARCHAR(45) NOT NULL,
   userName VARCHAR(45) NOT NULL,

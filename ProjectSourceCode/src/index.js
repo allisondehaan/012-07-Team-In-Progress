@@ -95,7 +95,7 @@ app.get('/login', async (req, res) => {
 
 app.post('/login',(req,res)=>{
 	const username = req.body.username;
-	const query = 'select * from User where User.userName = $1 LIMIT 1';
+	const query = 'select * from user where user.userName = $1 LIMIT 1';
 	const values = [username];
 	
 	const pass = db.one(query,values)
