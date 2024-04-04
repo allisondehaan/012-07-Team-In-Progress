@@ -4,7 +4,7 @@
 DROP TABLE IF EXISTS Preferences CASCADE;
 CREATE TABLE Preferences(
   idPref SERIAL PRIMARY KEY ,
-  sortingPref INT NULL,
+  sortingPref INT NULL
 );
 
 -- -----------------------------------------------------
