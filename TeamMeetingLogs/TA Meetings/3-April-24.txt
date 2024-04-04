@@ -1,0 +1,13 @@
+Meeting Notes: 
+-create separate branch and push once functional (completely running with no bugs)
+-up to you whether you delete the branch after merging (main = only functional code)
+-make sure to update stories as you finish things
+-went through everyones progress for the past week
+-Bhoomika's opinion: whatever comfortable with regarding css and bootstrap
+-meetings should be in separate folder for our own meetings and the meetings with TA
+-future plans:
+--backend for to do done
+--get demo working
+--finish up navigation bar
+--make sure login/register function
+--get docker up and running for future testing
