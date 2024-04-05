@@ -15,7 +15,7 @@ CREATE TABLE users(
   idUser SERIAL PRIMARY KEY,
   --email VARCHAR(45) NOT NULL,
   userName VARCHAR(45) NOT NULL,
-  passWordHash CHAR(100) NOT NULL --Need to add comma when/if below is uncommented
+  passWordHash CHAR(60) NOT NULL --Need to add comma when/if below is uncommented
   --firstName VARCHAR(45) NOT NULL,
   --lastName VARCHAR(45) NULL,
   --Usercol VARCHAR(45) NULL,
