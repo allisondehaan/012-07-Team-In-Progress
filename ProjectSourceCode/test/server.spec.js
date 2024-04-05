@@ -42,11 +42,11 @@ describe('Server!', () => {
   // and expects the API to return a status of 400 along with the "Invalid input" message.
 
   describe('Testing Add User API', () => {
-    it('positive : /add_user', done => {
+    it('positive : /register', done => {
       // Refer above for the positive testcase implementation
       chai
       .request(server)
-      .post('/add_user')
+      .post('/register')
       .send({ 
         email:'johndoe@colorado.edu',
         userName: 'johndoe', 
@@ -69,10 +69,10 @@ describe('Server!', () => {
     // Result: This test case should pass and return a status 400 along with a "Invalid input" message.
     // Explanation: The testcase will call the /add_user API with the following invalid inputs
     // and expects the API to return a status of 400 along with the "Invalid input" message.
-    it('Negative : /add_user. Checking invalid name', done => {
+    it('Negative : /register. Checking invalid name', done => {
       chai
         .request(server)
-        .post('/add_user')
+        .post('/register')
         .send({
           email:'', // providing empty email
           userName: 'johndoe', 

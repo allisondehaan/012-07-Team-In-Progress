@@ -9,19 +9,20 @@ const pgp = require('pg-promise')(); // To connect to the Postgres DB from the n
 const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 const bcrypt = require('bcrypt'); //  To hash passwords
+const { rmSync } = require('fs');
 
 app.use(express.static(__dirname + '/'));
 
 //ExpressHandlebars instance creation and configuration
 const hbs = handlebars.create({
 	extname: 'hbs',
-	layoutsDir: __dirname+'/views/layouts',
-	partialsDir: __dirname+'/views/partials',
+	layoutsDir: __dirname + '/views/layouts',
+	partialsDir: __dirname + '/views/partials',
 });
 //handlebars registering
-app.engine('hbs',hbs.engine);
-app.set('view engine','hbs');
-app.set('views',path.join(__dirname,'views'));
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json());
 
 //Session init
@@ -62,9 +63,15 @@ db.connect()
 //Copied from Lab 7
 
 const user = {
-	
+	username: undefined,
+	password: undefined
 };
 
+/*
+---------------------------------
+Register Routes
+---------------------------------
+*/
 
 app.get("/", function (req, res) {
     res.redirect('/register');
@@ -77,7 +84,7 @@ app.get('/register', function (req, res) {
 app.post('/register', async (req, res) => {
     //hash the password using bcrypt library
     const hash = await bcrypt.hash(req.body.password, 10);
-    const query = `INSERT INTO users (username,password) VALUES ($1,$2)`;
+    const query = `INSERT INTO users (userName,passWordHash) VALUES ($1,$2)`;
 
     try {
         await db.any(query, [req.body.username, hash])
@@ -89,25 +96,53 @@ app.post('/register', async (req, res) => {
     }
 });
 
+
+/*
+---------------------------------
+Login Routes
+---------------------------------
+*/
+
 app.get('/login', async (req, res) => {
     res.render('pages/login');
 })
 
-app.post('/login',(req,res)=>{
-	const username = req.body.username;
-	const query = 'select * from User where User.userName = $1 LIMIT 1';
-	const values = [username];
+//More Original Code
+
+app.post('/login', async (req,res)=>{
+	const inputUsername = req.body.username;
+	const query = `select * from users where users.userName = '${inputUsername}' LIMIT 1`;
 	
-	const pass = db.one(query,values)
-	.then(data=>{
-		return data.passWordHash;
-	})
+	await db.one(query)
+		.then(async data => {
+			if(data.username == "")
+			{
+				res.redirect('/register');
+			}
+			user.username = data.username;
+        	user.password = data.passwordhash;
+			//Turns out the SQL table had to have the password as char(60) exactly in order to work.
+			const match = await bcrypt.compare(req.body.password, user.password);
+			if( match ) {
+				req.session.user = user;
+				req.session.save();
+				res.redirect('/home');
+			} else {
+				res.render('pages/login',{
+					error: true,
+					message: 'Incorrect username or password.',
+				});
+			}
+
+		})
 	.catch(err => {
 		console.log(err);
 		res.redirect('/register');
 	});
-	
-	const match = bcrypt.compare(req.body.password,pass);
+
+
+	/*This was moved inside code above.
+	const match = await bcrypt.compare(req.body.password, user.password);
 	if( match ) {
 		req.session.user = user;
 		req.session.save();
@@ -118,7 +153,11 @@ app.post('/login',(req,res)=>{
 			message: 'Incorrect username or password.',
 		});
 	}
+	*/
 });
+
+
+
 
 app.get('/welcome', (req, res) => {
   res.json({status: 'success', message: 'Welcome!'});
