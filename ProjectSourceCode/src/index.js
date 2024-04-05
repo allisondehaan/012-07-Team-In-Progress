@@ -123,15 +123,11 @@ app.post('/login', async (req,res)=>{
         	user.password = data.passwordhash;
 			//Turns out the SQL table had to have the password as char(60) exactly in order to work.
 			const match = await bcrypt.compare(req.body.password, user.password);
-			const hash = await bcrypt.hash(req.body.password, 10);
 			if( match ) {
 				req.session.user = user;
 				req.session.save();
 				res.redirect('/home');
 			} else {
-				console.log(req.body.password);
-				console.log(data);
-				console.log(user.password);
 				res.render('pages/login',{
 					error: true,
 					message: 'Incorrect username or password.',
