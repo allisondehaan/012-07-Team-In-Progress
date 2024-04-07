@@ -157,16 +157,17 @@ app.post('/login', async (req,res)=>{
 });
 
 
+app.get('/welcome', (req, res) => {
+  res.json({status: 'success', message: 'Welcome!'});
+});
 
+// This route handles GET requests to the '/home' endpoint.
 app.get('/home', (req, res) => {
 	// Render the 'home' template
 	res.render('pages/home');
   });
 
-app.get('/welcome', (req, res) => {
-  res.json({status: 'success', message: 'Welcome!'});
-});
-
+// This route handles GET requests to the '/logout' endpoint.
 app.get('/logout', (req, res) => {
 	req.session.destroy();
 	res.render('pages/logout');
