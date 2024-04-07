@@ -168,7 +168,6 @@ const auth = (req, res, next) => {
   // Authentication Required
   app.use(auth);
 
-
 app.get('/welcome', (req, res) => {
   res.json({status: 'success', message: 'Welcome!'});
 });
