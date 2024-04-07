@@ -158,10 +158,19 @@ app.post('/login', async (req,res)=>{
 
 
 
+app.get('/home', (req, res) => {
+	// Render the 'home' template
+	res.render('pages/home');
+  });
 
 app.get('/welcome', (req, res) => {
   res.json({status: 'success', message: 'Welcome!'});
 });
+
+app.get('/logout', (req, res) => {
+	req.session.destroy();
+	res.render('pages/logout');
+  });
 
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');//? is this Still true
