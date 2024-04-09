@@ -4,3 +4,5 @@ allisondehaan:
 Updated the format for the login page
 Created a function logout page that logs out the user + authentication middleware
 Worked on branch for the functional routing on the website to the logout page and home page
+I created a similar look as login page and added a link so users could return to the login page (other than using nav bar)
+
