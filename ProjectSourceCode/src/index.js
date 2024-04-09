@@ -92,8 +92,8 @@ app.post('/register', async (req, res) => {
 
     try {
         await db.any(query, [req.body.username, hash])
-        // res.render('pages/login');
-		res.redirect('/home');  // Redirect to home page
+        res.render('pages/login'); //Need to redirect to login page since the register only adds data to database. Does not actually login and create session.
+		//res.redirect('/home');  // Redirect to home page
     }
     catch (err) {
         res.redirect("/register");
