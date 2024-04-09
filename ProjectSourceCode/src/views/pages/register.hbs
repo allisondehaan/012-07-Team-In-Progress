@@ -15,20 +15,23 @@
             <div class ="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                <h2 class="text-center mb-4" style="font-family: 'Times New Roman', serif;">Register</h2>
-                <form action="/register" method="POST">
-                    <div class="mb-3">
-                        <label for="username" class="form-label" style="font-family: 'Times New Roman', serif;">Username:</label>
-                        <input type="text" id="username" name="username" required style="font-family: 'Times New Roman', serif;">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label" style="font-family: 'Times New Roman', serif;">Password:</label>
-                        <input type="password" id="password" name="password" required style="font-family: 'Times New Roman', serif;">
-                    </div>
-                    <button type="submit">Register</button>
-                </form>
+                        <h2 class="text-center mb-4" style="font-family: 'Times New Roman', serif;">Register</h2>
+                        <form action="/register" method="POST">
+                            <div class="mb-3">
+                                <label for="username" class="form-label" style="font-family: 'Times New Roman', serif;">Username:</label>
+                                <input type="text" id="username" name="username" required style="font-family: 'Times New Roman', serif;">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label" style="font-family: 'Times New Roman', serif;">Password:</label>
+                                <input type="password" id="password" name="password" required style="font-family: 'Times New Roman', serif;">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mb-3" style="font-family: 'Times New Roman', serif;">Register</button>
+                        </form>
 
-                <p>Already have an account? <a href="../pages/login.hbs">Login here</a></p>
+                        <p class = "text-center" style="font-family: 'Times New Roman', serif;">
+                            Already have an account?
+                            <a href="../pages/login.hbs">Login here</a>
+                        </p>
                     </div>
                 </div>
             </div>
