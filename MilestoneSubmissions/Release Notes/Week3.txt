@@ -1,0 +1,6 @@
+- Since the last meeting (4/3) we have...
+
+allisondehaan:
+Updated the format for the login page
+Created a function logout page that logs out the user
+Worked on branch for the functional routing on the website to the logout page and home page
