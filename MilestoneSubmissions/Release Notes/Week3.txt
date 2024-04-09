@@ -6,3 +6,8 @@ Created a function logout page that logs out the user + authentication middlewar
 Worked on branch for the functional routing on the website to the logout page and home page
 I created a similar look as login page and added a link so users could return to the login page (other than using nav bar)
 
+evy:
+completed the front-end for register
+formatted register page to match the login page
+added possible code in style.css for future use
+changed the redirect so that after a user registers, they're redirected to home rather than login.
