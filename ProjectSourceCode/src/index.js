@@ -184,5 +184,18 @@ app.get('/logout', (req, res) => {
 	res.render('pages/logout');
   });
 
+app.post('/create_todo', async (req, res) => {
+    const { event, date, time, location, description } = req.body;
+
+    try {
+        const query = `INSERT INTO todo (eventDate, eventTime, eventTitle, eventDesc, eventLocation) VALUES ($1, $2, $3, $4, $5)`;
+        await db.none(query, [date, time, event, description, location]);
+
+        res.redirect('/home');
+    } catch (error) {
+        console.log('Error creating a newtodo:', error);
+    }
+});
+
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');//? is this Still true
