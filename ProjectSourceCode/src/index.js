@@ -83,14 +83,30 @@ app.get('/register', function (req, res) {
 
 app.post('/register', async (req, res) => {
     //hash the password using bcrypt library
+
+	if(req.body.password === undefined)
+	{
+		res.status(400);
+		res.redirect("/register");
+		return;
+	}
+	if(req.body.username === undefined)
+	{
+		res.status(400);
+		res.redirect("/register");
+		return;
+	}
+
     const hash = await bcrypt.hash(req.body.password, 10);
     const query = `INSERT INTO users (userName,passWordHash) VALUES ($1,$2)`;
 
     try {
         await db.any(query, [req.body.username, hash])
+		res.status(200);
         res.render('pages/login');
     }
     catch (err) {
+		res.status(400);
         res.redirect("/register");
         console.log(err);
     }
@@ -117,6 +133,7 @@ app.post('/login', async (req,res)=>{
 		.then(async data => {
 			if(data.username == "")
 			{
+				res.status(400);
 				res.redirect('/register');
 			}
 			user.username = data.username;
@@ -124,10 +141,12 @@ app.post('/login', async (req,res)=>{
 			//Turns out the SQL table had to have the password as char(60) exactly in order to work.
 			const match = await bcrypt.compare(req.body.password, user.password);
 			if( match ) {
+				res.status(200);
 				req.session.user = user;
 				req.session.save();
 				res.redirect('/home');
 			} else {
+				res.status(400);
 				res.render('pages/login',{
 					error: true,
 					message: 'Incorrect username or password.',
@@ -136,6 +155,7 @@ app.post('/login', async (req,res)=>{
 
 		})
 	.catch(err => {
+		res.status(400);
 		console.log(err);
 		res.redirect('/register');
 	});
