@@ -11,3 +11,4 @@ completed the front-end for register
 formatted register page to match the login page
 added possible code in style.css for future use
 changed the redirect so that after a user registers, they're redirected to home rather than login.
+added a brighter version of logo
