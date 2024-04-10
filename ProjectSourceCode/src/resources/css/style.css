@@ -8,15 +8,18 @@ body
 
 h1
 {
-    color:rgb(0, 0, 0);
+    color:rgb(255, 255, 255);
 }
 
 #title
 {
     padding: 20px;
+    padding-right: 50px;
+    padding-top: 50px;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
+    text-shadow: 2px 2px rgb(123, 123, 123);
 }
 
 #navbarlogo
@@ -33,4 +36,12 @@ h1
     border: 1px solid rgb(0, 187, 255);
     outline-color: rgb(0, 174, 255);
     outline-width: 2px;
+}
+
+#homebg
+{
+    background-image: url('../img/homebg.jpg');
+    background-repeat: no-repeat; /* Prevent image repetition */
+    background-position: center center; /* Center the image */
+    background-size: cover; /* Make the image cover the entire viewport */
 }

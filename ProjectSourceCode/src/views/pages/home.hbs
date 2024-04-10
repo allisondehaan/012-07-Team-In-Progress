@@ -9,16 +9,18 @@
     <link rel="stylesheet" href="../../resources/css/style.css">
 </head>
 <body>
-    <header class="header">
+    <div id="homebg">
+        <header class="header">
         <div id="title">
             <h1>Work in Progress</h1>
         </div>
-        <img src="../../resources/img/WorkinProgressIcon.png" alt="Work in Progress Icon">
-    </header>
-{{!-- notes partial --}}
-    {{> notes}}
-{{!-- todos partial --}}
-    {{> todos}}
+        </header>
+        {{!-- notes partial --}}
+        {{!-- add recent todos and notes to display --}}
+        {{> notes}}
+        {{!-- todos partial --}}
+        {{> todos}}
+    </div>
 </body>
 </html>
 
