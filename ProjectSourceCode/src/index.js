@@ -118,8 +118,8 @@ app.post('/register', async (req, res) => {
         res.render('pages/login');
     }
     catch (err) {
-		//res.status(400);
-        res.redirect(400, 'register');
+		res.status(400);
+        res.redirect('register');
         console.log(err);
     }
 });
@@ -185,13 +185,13 @@ app.post('/login', async (req,res)=>{
 			//Turns out the SQL table had to have the password as char(60) exactly in order to work.
 			const match = await bcrypt.compare(req.body.password, user.password);
 			if( match ) {
-				//res.status(200);
+				res.status(200);
 				req.session.user = user;
 				req.session.save();
-				res.redirect(200, '/home');
+				res.redirect('/home');
 			} else {
-				//res.status(400);
-				res.render(400, 'pages/login',{
+				res.status(400);
+				res.render('pages/login',{
 					error: true,
 					message: 'Incorrect username or password.',
 				});
