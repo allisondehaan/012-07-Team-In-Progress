@@ -31,15 +31,9 @@ describe('Server!', () => {
 
 // ********************************************************************************
 
-//We are checking POST /add_user API by passing the user info in in incorrect manner (name cannot be an integer). This test case should pass and return a status 400 along with a "Invalid input" message.
 
-  // Example Negative Testcase :
-  // API: /add_user
-  // Input: {id: 5, name: 10, dob: '2020-02-20'}
-  // Expect: res.status == 400 and res.body.message == 'Invalid input'
-  // Result: This test case should pass and return a status 400 along with a "Invalid input" message.
-  // Explanation: The testcase will call the /add_user API with the following invalid inputs
-  // and expects the API to return a status of 400 along with the "Invalid input" message.
+
+
 
   describe('Testing Register API', () => {
     it('positive : /register', done => {
@@ -48,8 +42,8 @@ describe('Server!', () => {
       .request(server)
       .post('/register')
       .send({ 
-        username: 'johndoe', 
-        passwordhash: 'hashedPassword',
+        userName: 'johndoe', 
+        passWordHash: 'hashedPassword'
         })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -58,20 +52,14 @@ describe('Server!', () => {
       });
     });
   
-    // Example Negative Testcase :
-    // API: /add_user
-    // Input: {id: 5, name: 10, dob: '2020-02-20'}
-    // Expect: res.status == 400 and res.body.message == 'Invalid input'
-    // Result: This test case should pass and redirect back to the register page.
-    // Explanation: The testcase will call the /add_user API with the following invalid inputs
-    // and expects the API to return a status of 400 along with the "Invalid input" message.
-    it('Negative : /register. Checking invalid name', done => {
+
+    it('Negative : /register. Checking no username', done => {
       chai
         .request(server)
         .post('/register')
         .send({
-           //Providing no username
-          passwordhash: 'hashedPassword',
+           //Providing no username. Should fail if no username is passed in
+           passWordHash: 'hashedPassword'
         })
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -92,8 +80,8 @@ describe('Server!', () => {
       .request(server)
       .post('/login')
       .send({ 
-        username: 'johndoe', 
-        passwordhash: 'hashedPassword',
+        userName: 'johndoe', 
+        passWordHash: 'hashedPassword'
         })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -105,14 +93,14 @@ describe('Server!', () => {
 
 
 
-    it('Negative : /login. Checking invalid name', done => {
+    it('Negative : /login. Checking no username', done => {
       chai
         .request(server)
         .post('/login')
         .send({
            //Providing no username
-           username: '',
-          passwordhash: 'hashedPassword',
+           //username: '',  //Should fail if no username is passed in
+           passWordHash: 'hashedPassword'
         })
         .end((err, res) => {
           expect(res).to.have.status(400);

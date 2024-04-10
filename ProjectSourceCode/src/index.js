@@ -84,16 +84,28 @@ app.get('/register', function (req, res) {
 app.post('/register', async (req, res) => {
     //hash the password using bcrypt library
 
-	if(req.body.password === undefined)
+	if(req.body.password === undefined) //Checks if no password was given.
 	{
-		res.status(400);
-		res.redirect("/register");
+		//res.status(400);
+		res.redirect('400, /register');
 		return;
 	}
-	if(req.body.username === undefined)
+	if(req.body.username === undefined) //Checks if no username was given.
 	{
-		res.status(400);
-		res.redirect("/register");
+		//res.status(400);
+		res.redirect('400, /register');
+		return;
+	}
+	if(req.body.password === "") //Checks if blank password was given.
+	{
+		//res.status(400);
+		res.redirect('400, /register');
+		return;
+	}
+	if(req.body.username === "") //Checks if blank username was given.
+	{
+		//res.status(400);
+		res.redirect('400, /register');
 		return;
 	}
 
@@ -106,8 +118,8 @@ app.post('/register', async (req, res) => {
         res.render('pages/login');
     }
     catch (err) {
-		res.status(400);
-        res.redirect("/register");
+		//res.status(400);
+        res.redirect(400, 'register');
         console.log(err);
     }
 });
@@ -127,11 +139,43 @@ app.get('/login', async (req, res) => {
 
 app.post('/login', async (req,res)=>{
 	const inputUsername = req.body.username;
+	if(req.body.username === "") //Checks if blank username is received from user in HTML form.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+	if(req.body.username === undefined) //Checks if no username given.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+
+
+	if(req.body.password === "") //Checks if blank password is received from user in HTML form.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+	if(req.body.password === undefined) //Checks if no password given.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+
 	const query = `select * from users where users.userName = '${inputUsername}' LIMIT 1`;
 	
 	await db.one(query)
 		.then(async data => {
-			if(data.username == "")
+			if(data.username === "") //Checks if blank username is received.
+			{
+				res.status(400);
+				res.redirect('/register');
+			}
+			if(data.username === undefined) //Checks if username is not in table.
 			{
 				res.status(400);
 				res.redirect('/register');
