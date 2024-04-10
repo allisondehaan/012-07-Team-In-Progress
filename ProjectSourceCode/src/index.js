@@ -81,10 +81,6 @@ app.get('/register', function (req, res) {
     res.render('pages/register');
 });
 
-app.get('/home', (req, res) => {
-	res.render('pages/home');
-  });
-
 app.post('/register', async (req, res) => {
     //hash the password using bcrypt library
 
@@ -245,13 +241,13 @@ app.get('/welcome', (req, res) => {
 app.get('/home', (req, res) => {
 	// Render the 'home' template
 	res.render('pages/home');
-  });
+});
 
 // This route handles GET requests to the '/logout' endpoint.
 app.get('/logout', (req, res) => {
 	req.session.destroy();
 	res.render('pages/logout');
-  });
+});
 
 module.exports = app.listen(3000);
-console.log('Server is listening on port 3000');//? is this Still true
+console.log('Server is listening on port 3000');
