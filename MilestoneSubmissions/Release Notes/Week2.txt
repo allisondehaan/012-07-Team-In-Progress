@@ -1,0 +1,7 @@
+- Since the last meeting (3/19) we have...
+
+allisondehaan:
+Added possible icon for website
+Created html outline for home page
+Created more partials (nav, notes, todos)
+Added partials to home page (notes, todos)

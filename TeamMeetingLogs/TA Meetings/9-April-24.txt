@@ -1,0 +1,18 @@
+Time: 6PM - 6:19PM on 9 April 2024
+
+Things discussed:
+
+Reminded to update release notes for each week
+Consistently upload branches to github
+Come to office hours if issues arise
+
+Progress update
+Discussed individual work
+	Brandon worked on docker
+  Will worked on email system
+  Allie worked on login and logout page as well as routing
+  Tommy worked on back end with user data being saved into the db
+  Evy finished register page and also started work on CSS
+  Jamie worked on test launching and debugging
+Need to update github stories
+Talked about what is expected for next week, primarily focus is working on the TODO events both front and back end.

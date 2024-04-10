@@ -1,0 +1,4 @@
+-As a group we created folders and files for our group project
+-Added docker-compose.yaml file to run website
+-Added any given folders and files we will need
+  

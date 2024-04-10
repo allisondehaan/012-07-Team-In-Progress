@@ -1,0 +1,48 @@
+Feature 1: Note Creation and Viewing
+1. Test Case 1: Creating a Note
+    -Test Data: Title and content of note
+    -User Activity: User clicks on "Create New Note", enters title and content, then clicks the "Save" button
+    -Expected Result: The new note with the content is created and saved successfully
+2. Test Case 2: Viewing a Note
+    -Test Data: Existing note
+    -User Activity: User navigates to the notes section of page and selects an existing note
+    -Expected Result: The content of note is displayed accurately
+3. Test Case 3: Deleting a Note
+    -Test Data: Existing note
+    -User Activity: User navigates to the notes section of page and selects an existing note and then the delete button
+    -Expected Result: The note is successfully deleted
+Test Environment: Localhost
+Test Results:
+    Pass- New notes can be created, viewed, and deleted without errors
+    Fail- Creating, viewing, or deleting note fails, or is displayed incorrectly
+User Acceptance Testers: Product stakeholders, end users
+
+Feature 2: To-Do List Creation and Viewing
+1. Test Case 1: Create To-Do Item
+    Test Data: Task and due date
+    User Activity: User clicks on "Create To-Do", enters description and due date, then clicks "Save"
+    Expected Result: The new task with due date is added to the to-do list successfully
+2. Test Case 2: View To-Do List
+    Test Data: Existing task in the to-do lsit
+    User Activity: User navigates to their to-do list and views all tasks
+    Expected Result: The to-do list displays all the existing tasks accurately
+3. Test Case 3: Mark a Task as Complete
+    Test Data: Existing task and completed status
+    User Activity: User selects an existing task and marks it as completed
+    Expected Result: The existing task is updated and shows a completed status
+Test Environment: Localhost
+Test Results: 
+    Pass- To-do items can be created, viewed, and set to complete without errors
+    Fail- To-do list does not work as expected or displayed incorrectly
+User Acceptance Testers: product stakeholders, end users
+
+Feature 2: Note Sharing
+1. Test Case 1: Share Note via button
+    Test Data: Email address of recipient
+    User Activity: User clicks on the "Share Note" button on a note, enters the other users email, and clicks "Share"
+    Expected Result: The recipient receives an email containing a link to view the note
+Test Environment: Localhost
+Test Results:
+    Pass- Notes can be shared by the "Share Note" button successfully
+    Fail- Sharing functionality does not work or the recipient does not receive the note
+User Acceptance Testers: product stakeholders, end users
