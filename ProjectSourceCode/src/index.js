@@ -87,25 +87,25 @@ app.post('/register', async (req, res) => {
 	if(req.body.password === undefined) //Checks if no password was given.
 	{
 		//res.status(400);
-		res.redirect('400, /register');
+		res.redirect(400, '/register');
 		return;
 	}
 	if(req.body.username === undefined) //Checks if no username was given.
 	{
 		//res.status(400);
-		res.redirect('400, /register');
+		res.redirect(400, '/register');
 		return;
 	}
 	if(req.body.password === "") //Checks if blank password was given.
 	{
 		//res.status(400);
-		res.redirect('400, /register');
+		res.redirect(400, '/register');
 		return;
 	}
 	if(req.body.username === "") //Checks if blank username was given.
 	{
 		//res.status(400);
-		res.redirect('400, /register');
+		res.redirect(400, '/register');
 		return;
 	}
 
