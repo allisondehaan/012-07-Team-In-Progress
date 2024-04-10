@@ -59,7 +59,7 @@ describe('Server!', () => {
         .post('/register')
         .send({
            //Providing no username. Should fail if no username is passed in
-           passWordHash: 'hashedPassword'
+           password: 'hashedPassword'
         })
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -80,8 +80,8 @@ describe('Server!', () => {
       .request(server)
       .post('/login')
       .send({ 
-        userName: 'johndoe', 
-        passWordHash: 'hashedPassword'
+        username: 'johndoe', 
+        password: 'hashedPassword'
         })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -100,7 +100,7 @@ describe('Server!', () => {
         .send({
            //Providing no username
            //username: '',  //Should fail if no username is passed in
-           passWordHash: 'hashedPassword'
+           password: 'hashedPassword'
         })
         .end((err, res) => {
           expect(res).to.have.status(400);
