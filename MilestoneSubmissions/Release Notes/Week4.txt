@@ -7,3 +7,4 @@ Jamie:
 fixed relative paths for style in header and image in home
 fixed extraneous header <html> def and such in page files
 fixed home not redirecting to login when not logged in
+all pages now use style.css in resources
