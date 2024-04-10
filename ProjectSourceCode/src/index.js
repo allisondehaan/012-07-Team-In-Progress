@@ -183,6 +183,18 @@ app.get('/home', (req, res) => {
 	res.render('pages/home');
   });
 
+// This route handles GET requests to the '/todo' endpoint.
+app.get('/todos', (req, res) => {
+	// Render the 'TODOs' template
+	res.render('partials/todos');
+  });
+
+// This route handles GET requests to the '/notes' endpoint.
+app.get('/notes', (req, res) => {
+	// Render the 'notes' template
+	res.render('partials/notes');
+  });
+
 // This route handles GET requests to the '/logout' endpoint.
 app.get('/logout', (req, res) => {
 	req.session.destroy();
