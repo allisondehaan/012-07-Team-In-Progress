@@ -184,7 +184,7 @@ app.get('/logout', (req, res) => {
 	res.render('pages/logout');
   });
 
-app.post('/create_todo', async (req, res) => {
+app.post('/home', async (req, res) => {
     const { event, date, time, location, description } = req.body;
 
     try {
