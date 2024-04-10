@@ -12,3 +12,22 @@ formatted register page to match the login page
 added possible code in style.css for future use
 began formatting home page css
 added a brighter version of logo
+
+Corvus111/Brandon:
+Took inclusion of home.hbs as a partial out of main.hbs due to it being included in the {{{body}}}
+Created message.hbs for future use in login error message.
+Added a second command line in the docker. Allows for you to either run the test cases, or display the
+    working website. Only one can be uncommented at a time.
+Changed Users SQL table to users match previous labs naming style. Group agreed this was fine.
+Changed Users to users when called in index.js 
+Changed rest of SQL tables to match all lower case modal like users. Also fixed a few comma syntax errors 
+    Docker was giving in create.sql
+Commented out parts of the user SQL table to allow the register page to work, as we were trying to store
+    information we did not request, causing errors. Can uncomment when needed.
+Added username and password to the User variable in index.js 
+Restructured login routes in index.js to get login page on the website.
+Changed user SQL table passWordHash to be size 60, as bcrypt requires it to be exactly 60.
+Worked on getting the positive and negative test cases to work for both register and login pages 
+Added status codes to index.js for register and login for test cases 
+Added some tests to check if username or password is either blank or undefined in register and login 
+    routes.

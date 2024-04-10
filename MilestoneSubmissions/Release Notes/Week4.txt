@@ -1,0 +1,4 @@
+- Since the last meeting (4/9) we have...
+
+Corvus111/Brandon:
+Added a login error message if incorrect password is inputted with a correct username
