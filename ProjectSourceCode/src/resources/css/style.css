@@ -1,0 +1,19 @@
+
+body
+{
+    font-family: 'Times New Roman', sans-serif;
+    background-color: rgb(87, 196, 255);
+    padding: 20px;
+}
+
+h1
+{
+    color:rgb(255, 255, 255);
+}
+
+#title
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -81,6 +81,10 @@ app.get('/register', function (req, res) {
     res.render('pages/register');
 });
 
+app.get('/home', (req, res) => {
+	res.render('pages/home');
+  });
+
 app.post('/register', async (req, res) => {
     //hash the password using bcrypt library
 
@@ -114,8 +118,9 @@ app.post('/register', async (req, res) => {
 
     try {
         await db.any(query, [req.body.username, hash])
-		res.status(200);
-        res.render('pages/login');
+		    res.status(200);
+        res.render('pages/login'); //Need to redirect to login page since the register only adds data to database. Does not actually login and create session.
+
     }
     catch (err) {
 		res.status(400);
