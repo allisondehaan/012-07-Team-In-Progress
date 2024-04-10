@@ -2,3 +2,8 @@
 
 Corvus111/Brandon:
 Added a login error message if incorrect password is inputted with a correct username
+
+Jamie:
+fixed relative paths for style in header and image in home
+fixed extraneous header <html> def and such in page files
+fixed home not redirecting to login when not logged in
