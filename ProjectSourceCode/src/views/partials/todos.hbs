@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+    td, th {
+    border: 1px solid rgb(0, 174, 255);
+    text-align: left;
+    padding: 8px;
+    }
+
+    tr:nth-child(even) {
+    background-color: #dddddd;
+    }
+    </style>
+    <link rel="stylesheet" href="../../resources/css/style.css">
+</head>
+
+<body>
+    <div class="container" id="ToDoTitle">
+        <h2>ToDos</h2>
+    </div>
+
+
+{{> message }}
+
+<table>
+  <tr>
+
+    {{!-- idTODO SERIAL PRIMARY KEY,
+  eventDate DATE NOT NULL,
+  eventTime TIME NOT NULL,
+  eventTitle VARCHAR(45) NOT NULL,
+  eventDesc VARCHAR(4500) NULL,
+  eventLocation --}}
+    <th>ToDo ID</th>
+    <th>Event Name</th>
+    <th>Event Date</th>
+    <th>Event Time</th>
+    <th>Event Description</th>
+    <th>Event Location</th>
+  </tr>
+
+  {{!-- Loop through each TODO and display it in the table --}}
+  {{#each todo}}
+  <tr>
+    <td>{{this.id}}</td>
+    <td>{{this.eventTitle}}</td>
+    <td>{{this.eventDate}}</td>
+    <td>{{this.eventTime}}</td>
+    <td>{{this.eventDesc}}</td>
+    <td>{{this.eventLocation}}</td>
+    <td>
+      <form action="/todos/add" method="POST">
+        <input type="hidden" name="id" value="{{this.id}}">
+        {{#if this.taken}}
+        <button type="submit" disabled>Completed</button>
+        {{else}}
+        <button type="submit">Mark as Completed</button>
+        {{/if}}
+      </form>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+
+</body>
+</html>
