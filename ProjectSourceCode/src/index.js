@@ -15,9 +15,9 @@ app.use(express.static(__dirname + '/'));
 
 //ExpressHandlebars instance creation and configuration
 const hbs = handlebars.create({
-	extname: 'hbs',
-	layoutsDir: __dirname + '/views/layouts',
-	partialsDir: __dirname + '/views/partials',
+  extname: 'hbs',
+  layoutsDir: __dirname + '/views/layouts',
+  partialsDir: __dirname + '/views/partials',
 });
 //handlebars registering
 app.engine('hbs', hbs.engine);
@@ -66,7 +66,12 @@ const user = {
 	username: undefined,
 	password: undefined
 };
-
+app.get('/', (req, res) => {
+	res.render('pages/home', {
+	  username: req.session.user.username
+	});
+  });
+  
 /*
 ---------------------------------
 Register Routes
@@ -81,22 +86,46 @@ app.get('/register', function (req, res) {
     res.render('pages/register');
 });
 
-app.get('/home', (req, res) => {
-	res.render('pages/home');
-  });
-
 app.post('/register', async (req, res) => {
     //hash the password using bcrypt library
+
+	if(req.body.password === undefined) //Checks if no password was given.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+	if(req.body.username === undefined) //Checks if no username was given.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+	if(req.body.password === "") //Checks if blank password was given.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+	if(req.body.username === "") //Checks if blank username was given.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+
     const hash = await bcrypt.hash(req.body.password, 10);
     const query = `INSERT INTO users (userName,passWordHash) VALUES ($1,$2)`;
 
     try {
         await db.any(query, [req.body.username, hash])
+		    res.status(200);
         res.render('pages/login'); //Need to redirect to login page since the register only adds data to database. Does not actually login and create session.
-		//res.redirect('/home');  // Redirect to home page
+
     }
     catch (err) {
-        res.redirect("/register");
+		res.status(400);
+        res.redirect('register');
         console.log(err);
     }
 });
@@ -116,12 +145,45 @@ app.get('/login', async (req, res) => {
 
 app.post('/login', async (req,res)=>{
 	const inputUsername = req.body.username;
+	if(req.body.username === "") //Checks if blank username is received from user in HTML form.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+	if(req.body.username === undefined) //Checks if no username given.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+
+
+	if(req.body.password === "") //Checks if blank password is received from user in HTML form.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+	if(req.body.password === undefined) //Checks if no password given.
+	{
+		//res.status(400);
+		res.redirect(400, '/register');
+		return;
+	}
+
 	const query = `select * from users where users.userName = '${inputUsername}' LIMIT 1`;
 	
 	await db.one(query)
 		.then(async data => {
-			if(data.username == "")
+			if(data.username === "") //Checks if blank username is received.
 			{
+				res.status(400);
+				res.redirect('/register');
+			}
+			if(data.username === undefined) //Checks if username is not in table.
+			{
+				res.status(400);
 				res.redirect('/register');
 			}
 			user.username = data.username;
@@ -129,10 +191,12 @@ app.post('/login', async (req,res)=>{
 			//Turns out the SQL table had to have the password as char(60) exactly in order to work.
 			const match = await bcrypt.compare(req.body.password, user.password);
 			if( match ) {
+				res.status(200);
 				req.session.user = user;
 				req.session.save();
 				res.redirect('/home');
 			} else {
+				res.status(400);
 				res.render('pages/login',{
 					error: true,
 					message: 'Incorrect username or password.',
@@ -141,6 +205,7 @@ app.post('/login', async (req,res)=>{
 
 		})
 	.catch(err => {
+		res.status(400);
 		console.log(err);
 		res.redirect('/register');
 	});
@@ -181,7 +246,7 @@ app.get('/welcome', (req, res) => {
 app.get('/home', (req, res) => {
 	// Render the 'home' template
 	res.render('pages/home');
-  });
+});
 
 // This route handles GET requests to the '/todo' endpoint.
 app.get('/todos', (req, res) => {
@@ -199,7 +264,7 @@ app.get('/notes', (req, res) => {
 app.get('/logout', (req, res) => {
 	req.session.destroy();
 	res.render('pages/logout');
-  });
+});
 
 module.exports = app.listen(3000);
-console.log('Server is listening on port 3000');//? is this Still true
+console.log('Server is listening on port 3000');
