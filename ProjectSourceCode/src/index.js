@@ -15,9 +15,9 @@ app.use(express.static(__dirname + '/'));
 
 //ExpressHandlebars instance creation and configuration
 const hbs = handlebars.create({
-	extname: 'hbs',
-	layoutsDir: __dirname + '/views/layouts',
-	partialsDir: __dirname + '/views/partials',
+  extname: 'hbs',
+  layoutsDir: __dirname + '/views/layouts',
+  partialsDir: __dirname + '/views/partials',
 });
 //handlebars registering
 app.engine('hbs', hbs.engine);
@@ -66,7 +66,12 @@ const user = {
 	username: undefined,
 	password: undefined
 };
-
+app.get('/', (req, res) => {
+	res.render('pages/home', {
+	  username: req.session.user.username
+	});
+  });
+  
 /*
 ---------------------------------
 Register Routes
