@@ -33,7 +33,16 @@ h1
     text-shadow: 2px 2px rgb(123, 123, 123);
 }
 
-#ToDo
+#ToDoTitle
+{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1px 1px rgb(188, 188, 188);
+}
+
+#NotesTitle
 {
     padding-top: 50px;
     display: flex;
