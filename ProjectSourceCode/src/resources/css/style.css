@@ -11,7 +11,7 @@ h1
     color:rgb(255, 255, 255);
 }
 
-#title
+#titleWIP
 {
     padding: 20px;
     padding-right: 50px;
@@ -20,6 +20,26 @@ h1
     justify-content: right;
     align-items: center;
     text-shadow: 2px 2px rgb(123, 123, 123);
+}
+
+#title
+{
+    padding: 20px;
+    padding-right: 50px;
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px rgb(123, 123, 123);
+}
+
+#ToDo
+{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1px 1px rgb(188, 188, 188);
 }
 
 #navbarlogo
