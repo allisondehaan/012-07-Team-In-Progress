@@ -8,3 +8,8 @@ fixed relative paths for style in header and image in home
 fixed extraneous header <html> def and such in page files
 fixed home not redirecting to login when not logged in
 all pages now use style.css in resources
+
+alliedehaan:
+Edited home page - fixed up some of the home page (added a welcome message, to dos spot)
+Footer(& more home page)added a footer to the home page and updated some of the text (footer, font weight, centering)
+Add greeting for user on home page - As a user I should see a welcome message.
