@@ -5,3 +5,11 @@ Added possible icon for website
 Created html outline for home page
 Created more partials (nav, notes, todos)
 Added partials to home page (notes, todos)
+
+Corvus111/Brandon:
+Created the login page front end in login.hbs
+Created and filled out footer partial with bootstrap script
+Created and filled out header partial with bootstrap css 
+Inserted the header.hbs, footer.hbs, and body as partials in main.hbs 
+Created and filled out the nav.hbs. Simple implementation which only had home and logout linked 
+Created logout.hbs, but left it blank.
