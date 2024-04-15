@@ -13,3 +13,9 @@ alliedehaan:
 Edited home page - fixed up some of the home page (added a welcome message, to dos spot)
 Footer(& more home page)added a footer to the home page and updated some of the text (footer, font weight, centering)
 Add greeting for user on home page - As a user I should see a welcome message.
+
+evy:
+added todos and notes on navbar
+created a todo table to display todos in todo page
+added css for styling across pages
+created and added a welcome page picture
