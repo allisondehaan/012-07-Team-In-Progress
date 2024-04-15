@@ -5,20 +5,61 @@
         .header h1 {
             font-family: 'Times New Roman', serif;
         }
+        .container {
+            max-width: 800px; 
+            margin: 50px auto; /* margin position slightly off-center */
+            padding: 20px;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between; /* alignment */
+        }
+        .col {
+            padding: 20px;
+            border: 1px solid #ccc; /* border styling */
+            border-radius: 5px;
+            background-color: #f9f9f9; /* background color of box*/
+        }
+        .col:first-child {
+            flex: 1; /* first column to take up remaining space */
+            margin-right: 20px; /* spacing between columns */
+        }
+        .col:last-child {
+            flex-basis: 25%; /* width of the last column */
+        }
     </style>
     <link rel="stylesheet" href="../../resources/css/style.css">
+    <title>Work in Progress</title>
+    {{> title}}
+
 </head>
+
 <body>
-    <header class="header">
-        <img src="/ProjectSourceCode/src/resources/img/WorkinProgressIcon.png" alt="Work in Progress Icon">
-        <div id="title">
-            <h1>Work in Progress</h1>
+    {{!-- {{> title}}
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+     --}}
+     <!-- TODO: Include the `title` partial here -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Upcoming To-Dos</h2>
+                <p>.</p>
+                <p>.</p>
+                <p>.</p>
+                <p>.</p>
+            </div>
+            <div class="col">
+                <h2>Work in Progress</h2>
+                <p>
+                    Welcome to Work in Progress, your go-to platform for managing to-dos and notes. Here's what you can expect:
+                </p>
+                <ul>
+                    <li>Organize Your Life: Easily create, update, and track your to-dos and notes.</li>
+                    <li>Collaborate with Others: Share and receive notes with fellow users.</li>
+                </ul>
+                <p>Thank you for joining the Work in Progress community!</p>
+            </div>
         </div>
-    </header>
-{{!-- notes partial --}}
-    {{> notes}}
-{{!-- todos partial --}}
-    {{> todos}}
+    </div>
 </body>
 </html>
-
