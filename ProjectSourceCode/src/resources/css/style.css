@@ -8,7 +8,7 @@ body
 
 h1
 {
-    color:rgb(255, 255, 255);
+    color:rgb(0, 0, 0);
 }
 
 #title
@@ -67,8 +67,7 @@ h1
 
 #homebg
 {
-    background-image: url('../img/homebg.jpg');
-    background-repeat: no-repeat; /* Prevent image repetition */
-    background-position: center center; /* Center the image */
-    background-size: cover; /* Make the image cover the entire viewport */
+    display: flex;
+    max-height: 25%;
+    width: auto;
 }
