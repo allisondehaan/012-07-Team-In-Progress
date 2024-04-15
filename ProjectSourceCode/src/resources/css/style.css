@@ -2,18 +2,84 @@
 body
 {
     font-family: 'Times New Roman', sans-serif;
-    background-color: rgb(87, 196, 255);
+    background-color: rgb(255, 255, 255);
     padding: 20px;
 }
 
 h1
 {
-    color:rgb(255, 255, 255);
+    color:rgb(0, 0, 0);
 }
 
 #title
 {
+    padding: 20px;
+    padding-right: 50px;
+    padding-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-shadow: 2px 2px rgb(123, 123, 123);
+}
+
+#titleWIP
+{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1px 1px rgb(188, 188, 188);
+}
+
+#ToDoTitle
+{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1px 1px rgb(188, 188, 188);
+}
+
+#NotesTitle
+{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1px 1px rgb(188, 188, 188);
+}
+
+#navbarlogo
+{
+    padding-right: 1%;
+    display: flex;
+    justify-content: right;
+    text-align:right;
+}
+
+#navbar
+{
+    outline-style: groove;
+    border: 1px solid rgb(0, 187, 255);
+    outline-color: rgb(0, 174, 255);
+    outline-width: 2px;
+}
+
+#homebg
+{
+    display: flex;
+    max-height: fit-content;
+    width: auto;
+}
+
+#wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+#container {
+    width: 100%;
+    margin: 0 auto;
+}
+.banner-img {
+    width: 100%;
 }
