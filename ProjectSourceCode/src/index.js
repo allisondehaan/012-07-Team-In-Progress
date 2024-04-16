@@ -267,11 +267,19 @@ app.get('/logout', (req, res) => {
 });
 
 //This route handles the GET requests for the sorting system.
-//Goal is to receive a specific number, and reutn all sorted todos based on the format of received number
+//Goal is to receive a specific number, and reuturn all sorted todos based on the format of received number
 //Only return todos which the IDtodo is matched with idUser in the users_to_todo table.
 //Ex. Receives 1, so we sort with soonest todos on top, and farthest on the bottom. Want to pull form table and return list to be displayed onto site.
 app.get('/todo/sort', (req, res) => {
+	if(user.idPref == 1) //Will be the deafult sorting with soonest event on top.
+	{
+		//query selects all todos which are created by the user and returns them with soonest eventDate
+		//on top and the farthest eventDate on bottom.
+		const query = SELECT * FROM todo WHERE todo.idTODO = 
+		(SELECT idTODO FROM users_to_todo WHERE user.id = users_to_todo.idUser) ORDER BY eventDate ASC;
+	}
 
+	
 });
 
 module.exports = app.listen(3000);
