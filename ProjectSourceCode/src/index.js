@@ -266,5 +266,13 @@ app.get('/logout', (req, res) => {
 	res.render('pages/logout');
 });
 
+//This route handles the GET requests for the sorting system.
+//Goal is to receive a specific number, and reutn all sorted todos based on the format of received number
+//Only return todos which the IDtodo is matched with idUser in the users_to_todo table.
+//Ex. Receives 1, so we sort with soonest todos on top, and farthest on the bottom. Want to pull form table and return list to be displayed onto site.
+app.get('/todo/sort', (req, res) => {
+
+});
+
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');
