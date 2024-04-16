@@ -1,0 +1,18 @@
+4-15-2024
+Meeting from 7:00-7:24
+Topics Discussed:
+	-Anyone having difficulties?
+		-Email system still being a point of issue.
+		-Works arounds if the email system does not work.
+	-Current Work
+		-Welcome message or login warning 
+		-Sorting implementation began
+		-Create todos should be merged and finished soon
+	-Design of the homepage 
+	-Scheduled meeting with TA for tomorrow at 6.
+	-Created Goals for Week
+		-Create todos merged and check if it works 
+		-Finish sorting system 
+		-Ideas for non-email based sorting system
+		-Make sure the website representation of displaying user's todos is functional
+		
