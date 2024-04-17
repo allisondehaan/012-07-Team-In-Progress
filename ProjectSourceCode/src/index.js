@@ -67,12 +67,12 @@ const user = {
 	password: undefined,
 	id: undefined
 };
-app.get('/', (req, res) => {
-	res.render('pages/home', {
-	  username: req.session.user.username
-	});
-  });
-  
+// app.get('/', (req, res) => {
+// 	res.render('pages/home', {
+// 	  username: req.session.user.username
+// 	});
+//   });
+// ^^ not needed
 /*
 ---------------------------------
 Register Routes
@@ -251,6 +251,7 @@ app.get('/home', (req, res) => {
 });
 
 // This route handles GET requests to the '/todo' endpoint.
+//Currently have the sorting system rendering the page at the end.
 /*app.get('/todos', (req, res) => {
 	// Render the 'TODOs' template
 	res.render('partials/todos');
@@ -268,6 +269,7 @@ app.get('/logout', (req, res) => {
 	res.render('pages/logout');
 });
 
+
 //This route handles the GET requests for the sorting system.
 //Goal is to receive a specific number, and reuturn all sorted todos based on the format of received number
 //Only return todos which the IDtodo is matched with idUser in the users_to_todo table.
@@ -283,6 +285,7 @@ app.get('/todos', async (req, res) => {
 		//on top and the farthest eventDate on bottom.
 		const sort = `SELECT * FROM todo WHERE todo.idTODO = (SELECT users_to_todo.idTODO FROM users_to_todo WHERE $1 = users_to_todo.idUser) ORDER BY todo.eventDate ASC`;
 
+    //Will sort and return sortedTodos which we can parse with handlebars to display
 		await db.any(sort, user.id)
 		.then(data => {
 			const sortedTodos = data;
@@ -293,16 +296,23 @@ app.get('/todos', async (req, res) => {
 	}
 	//Need to sort, and then render while passing the returned query results
 	//For inital render, if we want to have stuff, we need to put the default search prior to rendering?
-	/*
-	await db.any(sort)
-		.then(data => {
-			const sortedTodos = data;
-			res.render('partials/todo', {
-				sortedTodos
-			});
-		});
-	*/
 });
+
+// Working code to insert create_todo form into the database, I commented it out because I don't think we'll put the create todos on the home page
+// We need to make a new page with the todos and then change the path from '/home' to '/todo_page'
+// app.post('/home', async (req, res) => {
+//     const { event, date, time, location, description } = req.body;
+
+//     try {
+//         const query = `INSERT INTO todo (eventDate, eventTime, eventTitle, eventDesc, eventLocation) VALUES ($1, $2, $3, $4, $5)`;
+//         await db.none(query, [date, time, event, description, location]);
+
+//         res.redirect('/home');
+//     } catch (error) {
+//         console.log('Error creating a newtodo:', error);
+//     }
+// });
+
 
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');

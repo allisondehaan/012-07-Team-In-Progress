@@ -31,3 +31,9 @@ Worked on getting the positive and negative test cases to work for both register
 Added status codes to index.js for register and login for test cases 
 Added some tests to check if username or password is either blank or undefined in register and login 
     routes.
+
+tommy/uhmuon1: 
+Made a create_todo partial with a form that takes 5 inputs: name, date, time, location, and description.
+The date and time inputs are created with input types "date" and "time" so that the form entry is either for date/time, respectively.
+Added this partial to the home page and tested its functionality.
+Uploaded this to the create_todo_tommy branch.

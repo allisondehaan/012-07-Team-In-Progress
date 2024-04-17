@@ -6,7 +6,7 @@
 Team: Team in Progress
 | Name | Github| Email |
 | - | - | - |
-| Env Ng | evy004 | evng6281@colorado.edu |
+| Evy Ng | evy004 | evng6281@colorado.edu |
 | Will Lockhart | WilliamPLockhart | wilo8853@colorado.edu |
 | Brandon Martinez | Corvus111 | brma8819@colorado.edu |
 | Allie Dehaan | allisondehaan | alde6209@colorado.edu |
