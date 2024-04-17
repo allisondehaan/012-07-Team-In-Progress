@@ -275,20 +275,18 @@ app.get('/logout', (req, res) => {
 app.get('/todos', async (req, res) => {
 	if(user.idPref == 2)
 	{
-		console.log("we broke :(");
+		console.log("Will be used for different search features.");
 	}
 	else //Will be the deafult sorting with soonest event on top. Will change from 1 to else
 	{
 		//query selects all todos which are created by the user and returns them with soonest eventDate
 		//on top and the farthest eventDate on bottom.
-		console.log("before query definition");
-		const sort = `SELECT * FROM todo WHERE todo.idTODO = 
-		(SELECT idTODO FROM users_to_todo WHERE user.id = users_to_todo.idUser) ORDER BY eventDate ASC`;
+		const sort = `SELECT * FROM todo WHERE todo.idTODO = (SELECT users_to_todo.idTODO FROM users_to_todo WHERE $1 = users_to_todo.idUser) ORDER BY todo.eventDate ASC`;
 
-		await db.any(sort)
+		await db.any(sort, user.id)
 		.then(data => {
 			const sortedTodos = data;
-			res.render('partials/todo', {
+			res.render('partials/todos', {
 				sortedTodos
 			});
 		});
