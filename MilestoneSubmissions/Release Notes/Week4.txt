@@ -22,3 +22,9 @@ created and added a welcome page picture
 
 will:
 continued to work with nodemailer and look at possible message sharing systems.
+
+tommy/uhmuon1: 
+Worked on the index.js file so that the inputs for the create todo form are uploaded to the users database correctly.
+Tested this by using postgres and validating that the inputs for the form are uploaded to the database, which they were. 
+Committed create_todo.hbs and the updated index.js to main.
+Resolved an issue with index.js in app.get('/') that was causing the page to not render. 
