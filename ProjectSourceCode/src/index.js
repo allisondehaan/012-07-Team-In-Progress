@@ -66,12 +66,12 @@ const user = {
 	username: undefined,
 	password: undefined
 };
-app.get('/', (req, res) => {
-	res.render('pages/home', {
-	  username: req.session.user.username
-	});
-  });
-  
+// app.get('/', (req, res) => {
+// 	res.render('pages/home', {
+// 	  username: req.session.user.username
+// 	});
+//   });
+// ^^ not needed
 /*
 ---------------------------------
 Register Routes
