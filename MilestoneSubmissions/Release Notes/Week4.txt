@@ -19,3 +19,6 @@ added todos and notes on navbar
 created a todo table to display todos in todo page
 added css for styling across pages
 created and added a welcome page picture
+
+will:
+continued to work with nodemailer and look at possible message sharing systems.
