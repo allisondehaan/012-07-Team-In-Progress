@@ -2,6 +2,7 @@
 
 Corvus111/Brandon:
 Added a login error message if incorrect password is inputted with a correct username
+Added the default sorting system which sorts soonest events first and farthest events last
 
 Jamie:
 fixed relative paths for style in header and image in home

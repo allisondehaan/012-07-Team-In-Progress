@@ -64,7 +64,8 @@ db.connect()
 
 const user = {
 	username: undefined,
-	password: undefined
+	password: undefined,
+	id: undefined
 };
 // app.get('/', (req, res) => {
 // 	res.render('pages/home', {
@@ -188,6 +189,7 @@ app.post('/login', async (req,res)=>{
 			}
 			user.username = data.username;
         	user.password = data.passwordhash;
+			user.id = data.iduser;
 			//Turns out the SQL table had to have the password as char(60) exactly in order to work.
 			const match = await bcrypt.compare(req.body.password, user.password);
 			if( match ) {
@@ -249,10 +251,11 @@ app.get('/home', (req, res) => {
 });
 
 // This route handles GET requests to the '/todo' endpoint.
-app.get('/todos', (req, res) => {
+//Currently have the sorting system rendering the page at the end.
+/*app.get('/todos', (req, res) => {
 	// Render the 'TODOs' template
 	res.render('partials/todos');
-  });
+  });*/
 
 // This route handles GET requests to the '/notes' endpoint.
 app.get('/notes', (req, res) => {
@@ -264,6 +267,35 @@ app.get('/notes', (req, res) => {
 app.get('/logout', (req, res) => {
 	req.session.destroy();
 	res.render('pages/logout');
+});
+
+
+//This route handles the GET requests for the sorting system.
+//Goal is to receive a specific number, and reuturn all sorted todos based on the format of received number
+//Only return todos which the IDtodo is matched with idUser in the users_to_todo table.
+//Ex. Receives 1, so we sort with soonest todos on top, and farthest on the bottom. Want to pull form table and return list to be displayed onto site.
+app.get('/todos', async (req, res) => {
+	if(user.idPref == 2)
+	{
+		console.log("Will be used for different search features.");
+	}
+	else //Will be the deafult sorting with soonest event on top. Will change from 1 to else
+	{
+		//query selects all todos which are created by the user and returns them with soonest eventDate
+		//on top and the farthest eventDate on bottom.
+		const sort = `SELECT * FROM todo WHERE todo.idTODO = (SELECT users_to_todo.idTODO FROM users_to_todo WHERE $1 = users_to_todo.idUser) ORDER BY todo.eventDate ASC`;
+
+    //Will sort and return sortedTodos which we can parse with handlebars to display
+		await db.any(sort, user.id)
+		.then(data => {
+			const sortedTodos = data;
+			res.render('partials/todos', {
+				sortedTodos
+			});
+		});
+	}
+	//Need to sort, and then render while passing the returned query results
+	//For inital render, if we want to have stuff, we need to put the default search prior to rendering?
 });
 
 // Working code to insert create_todo form into the database, I commented it out because I don't think we'll put the create todos on the home page
@@ -280,6 +312,7 @@ app.get('/logout', (req, res) => {
 //         console.log('Error creating a newtodo:', error);
 //     }
 // });
+
 
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');

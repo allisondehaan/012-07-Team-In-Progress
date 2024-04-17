@@ -47,9 +47,9 @@
   </tr>
 
   {{!-- Loop through each TODO and display it in the table --}}
-  {{#each todo}}
+  {{#each sortedTodos}}
   <tr>
-    <td>{{this.id}}</td>
+    <td>{{this.idTODO}}</td>
     <td>{{this.eventTitle}}</td>
     <td>{{this.eventDate}}</td>
     <td>{{this.eventTime}}</td>
