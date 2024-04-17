@@ -64,7 +64,8 @@ db.connect()
 
 const user = {
 	username: undefined,
-	password: undefined
+	password: undefined,
+	id: undefined
 };
 app.get('/', (req, res) => {
 	res.render('pages/home', {
@@ -188,6 +189,7 @@ app.post('/login', async (req,res)=>{
 			}
 			user.username = data.username;
         	user.password = data.passwordhash;
+			user.id = data.iduser;
 			//Turns out the SQL table had to have the password as char(60) exactly in order to work.
 			const match = await bcrypt.compare(req.body.password, user.password);
 			if( match ) {
@@ -249,10 +251,10 @@ app.get('/home', (req, res) => {
 });
 
 // This route handles GET requests to the '/todo' endpoint.
-app.get('/todos', (req, res) => {
+/*app.get('/todos', (req, res) => {
 	// Render the 'TODOs' template
 	res.render('partials/todos');
-  });
+  });*/
 
 // This route handles GET requests to the '/notes' endpoint.
 app.get('/notes', (req, res) => {
@@ -270,29 +272,38 @@ app.get('/logout', (req, res) => {
 //Goal is to receive a specific number, and reuturn all sorted todos based on the format of received number
 //Only return todos which the IDtodo is matched with idUser in the users_to_todo table.
 //Ex. Receives 1, so we sort with soonest todos on top, and farthest on the bottom. Want to pull form table and return list to be displayed onto site.
-app.get('/todo/sort', (req, res) => {
+app.get('/todos', async (req, res) => {
 	if(user.idPref == 2)
 	{
-
+		console.log("we broke :(");
 	}
 	else //Will be the deafult sorting with soonest event on top. Will change from 1 to else
 	{
 		//query selects all todos which are created by the user and returns them with soonest eventDate
 		//on top and the farthest eventDate on bottom.
-		const query = `SELECT * FROM todo WHERE todo.idTODO = 
+		console.log("before query definition");
+		const sort = `SELECT * FROM todo WHERE todo.idTODO = 
 		(SELECT idTODO FROM users_to_todo WHERE user.id = users_to_todo.idUser) ORDER BY eventDate ASC`;
-	}
-	//Need to sort, and then render while passing the returned query results
-	//For inital render, if we want to have stuff, we need to put the default search prior to rendering?
 
-	await db.any(query)
+		await db.any(sort)
 		.then(data => {
 			const sortedTodos = data;
 			res.render('partials/todo', {
 				sortedTodos
 			});
 		});
-	
+	}
+	//Need to sort, and then render while passing the returned query results
+	//For inital render, if we want to have stuff, we need to put the default search prior to rendering?
+	/*
+	await db.any(sort)
+		.then(data => {
+			const sortedTodos = data;
+			res.render('partials/todo', {
+				sortedTodos
+			});
+		});
+	*/
 });
 
 module.exports = app.listen(3000);
