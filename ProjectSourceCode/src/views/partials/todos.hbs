@@ -33,38 +33,41 @@
 
   <table>
     <tr>
+      {{!-- allows user to create a todo--}}
       <td colspan="6">
         <button onclick="window.location.href='/create_todo'">+</button>
       </td>
     </tr>
+
+
+    {{!-- table with information--}}
     <tr>
       <th>Event Name</th>
       <th>Event Date</th>
       <th>Event Time</th>
       <th>Event Description</th>
       <th>Event Location</th>
+      <th>Action</th>
     </tr>
 
-    {{!-- Loop through each TODO and display it in the table --}}
+    <!-- Loop through each TODO and display it in the table -->
     {{#each sortedTodos}}
     <tr>
-      <td>{{this.eventTitle}}</td>
-      <td>{{this.eventDate}}</td>
-      <td>{{this.eventTime}}</td>
-      <td>{{this.eventDesc}}</td>
-      <td>{{this.eventLocation}}</td>
+      <td>{{this.eventtitle}}</td>
+      <td>{{this.eventdate}}</td>
+      <td>{{this.eventtime}}</td>
+      <td>{{this.eventdesc}}</td>
+      <td>{{this.eventlocation}}</td>
       <td>
-        <form action="/todos/add" method="POST">
-          <input type="hidden" name="id" value="{{this.id}}">
-          {{#if this.taken}}
-          <button type="submit" disabled>Completed</button>
-          {{else}}
+        <form action="/todos-complete" method="POST">
+          <input type="hidden" name="id" value="{{this.idtodo}}">
           <button type="submit">Mark as Completed</button>
-          {{/if}}
         </form>
       </td>
     </tr>
     {{/each}}
+
+
   </table>
 
 </body>

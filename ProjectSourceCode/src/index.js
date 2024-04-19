@@ -260,8 +260,10 @@ app.get('/todos', async (req, res) => {
 		await db.any(sort, user.id)
 			.then(data => {
 				const sortedTodos = data;
+				console.log(sortedTodos)
 				res.render('partials/todos', {
-					sortedTodos
+					sortedTodos: sortedTodos
+
 				});
 			});
 	}
@@ -284,6 +286,7 @@ app.get("/", function (req, res) {
 app.get('/create_todo', function (req, res) {
 	res.render('partials/create_todo');
 });
+
 
 
 app.post('/create_todo', async (req, res) => {
@@ -319,6 +322,18 @@ app.post('/create_todo', async (req, res) => {
 		console.log(req.session.user);
 	}
 });
+
+
+
+
+
+app.post('/todos-complete', async (req, res) => {
+	//will delete the row from todo and user_to_todo
+
+
+});
+
+
 
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');
