@@ -31,7 +31,7 @@ CREATE TABLE todo(
   idTODO SERIAL PRIMARY KEY,
   eventDate DATE NOT NULL,
   eventTime TIME NOT NULL,
-  eventTitle VARCHAR(45) NOT NULL,
+  eventTitle VARCHAR(45) UNIQUE NOT NULL,
   eventDesc VARCHAR(4500) NULL,
   eventLocation VARCHAR(70) NULL
   );

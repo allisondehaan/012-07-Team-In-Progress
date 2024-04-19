@@ -61,7 +61,9 @@
       <td>
         <form action="/todos-complete" method="POST">
           <input type="hidden" name="id" value="{{this.idtodo}}">
+          <input type="hidden" name="eventName" value="{{this.eventtitle}}">
           <button type="submit">Mark as Completed</button>
+
         </form>
       </td>
     </tr>

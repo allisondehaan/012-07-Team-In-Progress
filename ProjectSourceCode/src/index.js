@@ -260,7 +260,6 @@ app.get('/todos', async (req, res) => {
 		await db.any(sort, user.id)
 			.then(data => {
 				const sortedTodos = data;
-				console.log(sortedTodos)
 				res.render('partials/todos', {
 					sortedTodos: sortedTodos
 
@@ -296,26 +295,31 @@ app.post('/create_todo', async (req, res) => {
     VALUES ($1, $2, $3, $4, $5)`;
 
 	const searchQuery =
-		`SELECT  idTODO 
-	FROM todo WHERE eventDate = $1 AND eventTime = $2 AND eventTitle = $3 AND eventDesc = $4 AND eventLocation = $5 LIMIT 1`;
+		`SELECT idTODO
+	FROM todo WHERE eventTitle = $1 LIMIT 1`;
+
+	const preventQuery = `SELECT COUNT(*) FROM todo WHERE eventTitle = $1`;
 	try {
-
-
-
-		//inserts the row
-		await db.none(insertQuery, [date, time, event, description, location]);
-		//finds row id
-		const todoRow = await db.oneOrNone(searchQuery, [date, time, event, description, location]);
-		if (!todoRow) {
-			throw new Error('Failed to find the inserted todo row');
-		}
-		const idTODO = todoRow.idtodo;
-		// links user to the new table row
-		const userToTodoQuery = `
+		if ((await db.one(preventQuery, [event])).count < 1) {
+			//inserts the row
+			await db.none(insertQuery, [date, time, event, description, location]);
+			//finds row id
+			const todoRow = await db.oneOrNone(searchQuery, [event]);
+			if (!todoRow) {
+				throw new Error('Failed to find the inserted todo row');
+			}
+			const idTODO = todoRow.idtodo;
+			// links user to the new table row
+			const userToTodoQuery = `
 			INSERT INTO users_to_todo (idTODO, idUser)
 			VALUES ($1, $2)`;
-		await db.none(userToTodoQuery, [idTODO, req.session.user.id]);
-		res.redirect('/todos');
+			await db.none(userToTodoQuery, [idTODO, req.session.user.id]);
+			res.redirect('/todos');
+		}
+		else {
+			res.redirect('/todos');
+		}
+
 	} catch (error) {
 		console.log('Error creating a new todo:', error);
 		// Handle error response here if necessary
@@ -326,12 +330,31 @@ app.post('/create_todo', async (req, res) => {
 
 
 
-
 app.post('/todos-complete', async (req, res) => {
-	//will delete the row from todo and user_to_todo
+	// will delete the row from todo and user_to_todo
 
+	const eventName = req.body.eventName;
+	const queryID = `SELECT idTODO FROM todo WHERE eventTitle = $1 LIMIT 1`;
+	const queryDelete = `
+    DELETE FROM users_to_todo WHERE idTODO IN (SELECT idTODO FROM todo WHERE eventTitle = $1);
+    DELETE FROM todo WHERE eventTitle = $1`;
 
+	try {
+		const result = await db.oneOrNone(queryID, [eventName]);
+		if (result) {
+			await db.none(queryDelete, [eventName]);
+			console.log('Todo deleted successfully.');
+			res.redirect('/todos');
+		} else {
+			console.log('could not find todo id');
+			res.status(404).render('partials/todos');
+		}
+	} catch (error) {
+		console.error('Error deleting todo:', error);
+		res.status(500).render('pages/home');
+	}
 });
+
 
 
 
