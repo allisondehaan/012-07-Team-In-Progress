@@ -44,3 +44,15 @@ CREATE TABLE users_to_todo (
   idTODO INT NOT NULL,
   idUser INT NOT NULL
 );
+
+
+-- -----------------------------------------------------
+-- Table share_todo
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS share_todo CASCADE;
+CREATE TABLE share_todo (
+idTODO INT NOT NULL,
+hostUser INT NOT NULL,
+sharedUser INT NOT NULL
+);
+

@@ -1,13 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid rgb(0, 174, 255);
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
     <link rel="stylesheet" href="../../resources/css/style.css">
 </head>
+
 <body>
-    <header class="header">
-        <div id="NotesTitle">
-            <h2>Notes</h2>
-        </div>
-    </header>
+    <div class="container" id="ToDoTitle">
+        <h2>Shared</h2>
+    </div>
+
+
+    {{> message }}
+
+    <table>
+        <tr>
+
+            <td colspan="6">
+
+            </td>
+
+
+        </tr>
+
+
+        {{!-- table with information--}}
+        <tr>
+            <th>Event Name</th>
+            <th>Event Date</th>
+            <th>Event Time</th>
+            <th>Event Description</th>
+            <th>Event Location</th>
+            <th>Action</th>
+        </tr>
+
+        <!-- Loop through each TODO and display it in the table -->
+        {{#each sortedTodos}}
+        <tr>
+            <td>{{this.eventtitle}}</td>
+            <td>{{this.eventdate}}</td>
+            <td>{{this.eventtime}}</td>
+            <td>{{this.eventdesc}}</td>
+            <td>{{this.eventlocation}}</td>
+            <td>
+
+                <ul>
+                    <form action="/share-complete" method="POST">
+                        <input type="hidden" name="id" value="{{this.idtodo}}">
+                        <input type="hidden" name="eventName" value="{{this.eventtitle}}">
+                        <button type="submit">Remove from shared</button>
+                    </form>
+                </ul>
+                <ul>
+                    <form action="/share-todo" method="GET">
+                        <input type="hidden" name="id" value="{{this.idtodo}}">
+                        <input type="hidden" name="eventName" value="{{this.eventtitle}}">
+                        <button type="submit">Share</button>
+                </ul>
+
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+
+
+    </table>
+
 </body>
+
 </html>

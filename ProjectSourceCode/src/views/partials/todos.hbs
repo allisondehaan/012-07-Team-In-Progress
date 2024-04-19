@@ -37,6 +37,8 @@
       <td colspan="6">
         <button onclick="window.location.href='/create_todo'">+</button>
       </td>
+
+
     </tr>
 
 
@@ -59,10 +61,20 @@
       <td>{{this.eventdesc}}</td>
       <td>{{this.eventlocation}}</td>
       <td>
-        <form action="/todos-complete" method="POST">
-          <input type="hidden" name="id" value="{{this.idtodo}}">
-          <input type="hidden" name="eventName" value="{{this.eventtitle}}">
-          <button type="submit">Mark as Completed</button>
+
+        <ul>
+          <form action="/todos-complete" method="POST">
+            <input type="hidden" name="id" value="{{this.idtodo}}">
+            <input type="hidden" name="eventName" value="{{this.eventtitle}}">
+            <button type="submit">Mark as Completed</button>
+          </form>
+        </ul>
+        <ul>
+          <form action="/share-todo" method="GET">
+            <input type="hidden" name="id" value="{{this.idtodo}}">
+            <input type="hidden" name="eventName" value="{{this.eventtitle}}">
+            <button type="submit">Share</button>
+        </ul>
 
         </form>
       </td>

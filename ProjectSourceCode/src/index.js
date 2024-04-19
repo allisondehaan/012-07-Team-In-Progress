@@ -226,9 +226,32 @@ app.get('/home', (req, res) => {
   });*/
 
 // This route handles GET requests to the '/notes' endpoint.
-app.get('/notes', (req, res) => {
-	// Render the 'notes' template
-	res.render('partials/notes');
+app.get('/notes', async (req, res) => {
+	if (req.session.user.idPref == 2) {
+		console.log("Will be used for different search features.");
+	}
+	else //Will be the deafult sorting with soonest event on top. Will change from 1 to else
+	{
+		//query selects all todos which are created by the user and returns them with soonest eventDate
+		//on top and the farthest eventDate on bottom.
+		const sort = `SELECT * FROM todo 
+		JOIN share_todo ON share_todo.idTODO = todo.idTODO
+		WHERE share_todo.sharedUser = $1
+		ORDER BY todo.eventDate ASC`;
+
+
+		//Will sort and return sortedTodos which we can parse with handlebars to display
+		await db.any(sort, user.id)
+			.then(data => {
+				const sortedTodos = data;
+				res.render('partials/notes', {
+					sortedTodos: sortedTodos
+
+				});
+			});
+	}
+	//Need to sort, and then render while passing the returned query results
+	//For inital render, if we want to have stuff, we need to put the default search prior to rendering?
 });
 
 // This route handles GET requests to the '/logout' endpoint.
@@ -355,6 +378,80 @@ app.post('/todos-complete', async (req, res) => {
 	}
 });
 
+
+
+/*
+---------------------------------
+ share todos Routes
+---------------------------------
+*/
+
+
+app.post('/share-with', async (req, res) => {
+	// will delete the row from todo and user_to_todo
+	const idTodo = req.body.id
+	const eventName = req.query.eventName;
+	const userSearch = req.body.searchBox;
+	const Searchquery = `SELECT idUser FROM users WHERE userName = $1 LIMIT 1`;
+	const InsertSearch = `INSERT INTO share_todo (idTODO, hostUser, sharedUser) VALUES($1, $2, $3) LIMIT 1`;
+
+	const hostID = req.session.user.id;
+
+
+	try {
+		if (userSearch) {
+
+			let sharedUserID = await db.any(Searchquery, [userSearch]);
+			sharedUserID = sharedUserID[0].iduser;;
+			await db.none(InsertSearch, [parseInt(idTodo), hostID, sharedUserID]);
+			res.render('pages/home');
+		}
+		else {
+			console.log('no user');
+		}
+	}
+	catch (error) {
+		console.log(error);
+	}
+});
+
+
+app.get("/", function (req, res) {
+	res.redirect('/share-todo');
+});
+
+
+app.get('/share-todo', function (req, res) {
+	const eventName = req.query.eventName;
+	const idtodo = req.query.id;
+	res.render('partials/share', { idtodo: idtodo, eventName: eventName }); // Pass idtodo and eventName to the rendered view
+});
+
+
+
+app.post('/share-complete', async (req, res) => {
+	// will delete the row from todo and user_to_todo
+
+	const eventName = req.body.eventName;
+	const queryID = `SELECT idTODO FROM todo WHERE eventTitle = $1 LIMIT 1`;
+	const queryDelete = `
+    DELETE FROM share_todo WHERE idTODO IN (SELECT idTODO FROM todo WHERE eventTitle = $1)`;
+
+	try {
+		const result = await db.oneOrNone(queryID, [eventName]);
+		if (result) {
+			await db.none(queryDelete, [eventName]);
+			console.log('Todo deleted successfully.');
+			res.redirect('/home');
+		} else {
+			console.log('could not find todo id');
+			res.status(404).render('partials/notes');
+		}
+	} catch (error) {
+		console.error('Error deleting todo:', error);
+		res.status(500).render('pages/home');
+	}
+});
 
 
 
