@@ -1,26 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid rgb(0, 174, 255);
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
 <body>
     <div class="container">
         <h2>Create TODO</h2>
-        <form action="/home" method="POST">
-            <label for="event">Event Name: </label>
-            <input id="event" name="event" autocomplete="off">
-            <br>
-            <label for="date">Date: </label>
-            <input type="date" id="date" name="date">
-            <br>
-            <label for="time">Time: </label>
-            <input type="time" id="time" name="time">
-            <br>
-            <label for="location">Location: </label>
-            <input id="location" name="location">
-            <br>
-            <label for="description">Description: </label>
-            <input id="description" name="description">
-
+        <form action="/create_todo" method="POST">
+            <table>
+                <tr>
+                    <th><label for="event">Event Name: </label></th>
+                    <td><input id="event" name="event" autocomplete="off" required></td>
+                </tr>
+                <tr>
+                    <th><label for="date">Date: </label></th>
+                    <td><input type="date" id="date" name="date" required></td>
+                </tr>
+                <tr>
+                    <th><label for="time">Time: </label></th>
+                    <td><input type="time" id="time" name="time" required></td>
+                </tr>
+                <tr>
+                    <th><label for="location">Location: </label></th>
+                    <td><input id="location" name="location" required></td>
+                </tr>
+                <tr>
+                    <th><label for="description">Description: </label></th>
+                    <td><input id="description" name="description" required></td>
+                </tr>
+            </table>
             <input type="submit" value="Create">
         </form>
     </div>
 </body>
+
 </html>
