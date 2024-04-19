@@ -15,11 +15,11 @@ CREATE TABLE users(
   idUser SERIAL PRIMARY KEY,
   --email VARCHAR(45) NOT NULL,
   userName VARCHAR(45) NOT NULL,
-  passWordHash CHAR(60) NOT NULL --Need to add comma when/if below is uncommented
-  --firstName VARCHAR(45) NOT NULL,
-  --lastName VARCHAR(45) NULL,
-  --Usercol VARCHAR(45) NULL,
-  --idPref INT NOT NULL
+  passWordHash CHAR(60) NOT NULL,
+  firstName VARCHAR(45) NOT NULL,
+  lastName VARCHAR(45) NOT NULL,
+  --Usercol VARCHAR(45) NOT NULL,
+  idPref INT NOT NULL DEFAULT 2
 );
 
 
@@ -31,7 +31,7 @@ CREATE TABLE todo(
   idTODO SERIAL PRIMARY KEY,
   eventDate DATE NOT NULL,
   eventTime TIME NOT NULL,
-  eventTitle VARCHAR(45) NOT NULL,
+  eventTitle VARCHAR(45) UNIQUE NOT NULL,
   eventDesc VARCHAR(4500) NULL,
   eventLocation VARCHAR(70) NULL
   );

@@ -1,28 +1,48 @@
 <div class="container">
 	<div class="row justify-content-center mt-5">
-		<div class ="col-md-6">
+		<div class="col-md-6">
 			<div class="card">
 				<div class="card-body">
 					<h2 class="text-center mb-4" style="font-family: 'Times New Roman', serif;">Register</h2>
-						<form action="/register" method="POST">
-							<div class="mb-3">
-								<label for="username" class="form-label" style="font-family: 'Times New Roman', serif;">Username:</label>
-								<input type="text" class="form-control" id="username" name="username" required style="font-family: 'Times New Roman', serif;">
-							</div>
-							<div class="mb-3">
-								<label for="password" class="form-label" style="font-family: 'Times New Roman', serif;">Password:</label>
-								<input type="password" class="form-control" id="password" name="password" required style="font-family: 'Times New Roman', serif;">
-							</div>
-							<div>
-								<button type="submit" class="btn btn-primary w-100 mb-3" style="font-family: 'Times New Roman', serif;">Register</button>
-							</div>
-							<div>
-								<p class = "text-center" style="font-family: 'Times New Roman', serif;">
-									Already have an account?
-									<a href="../pages/login.hbs">Login here</a>
-								</p>
-							</div>
-						</form>
+					<form action="/register" method="POST">
+						<div class="mb-3">
+							<label for="username" class="form-label"
+								style="font-family: 'Times New Roman', serif;">Username:</label>
+							<input type="text" class="form-control" id="username" name="username" required
+								style="font-family: 'Times New Roman', serif;">
+						</div>
+
+						<div class="mb-3">
+							<label for="firstName" class="form-label"
+								style="font-family: 'Times New Roman', serif;">First Name:</label>
+							<input type="text" class="form-control" id="firstName" name="firstName" required
+								style="font-family: 'Times New Roman', serif;">
+						</div>
+
+						<div class="mb-3">
+							<label for="lastName" class="form-label" style="font-family: 'Times New Roman', serif;">Last
+								Name:</label>
+							<input type="text" class="form-control" id="lastName" name="lastName" required
+								style="font-family: 'Times New Roman', serif;">
+						</div>
+
+						<div class="mb-3">
+							<label for="password" class="form-label"
+								style="font-family: 'Times New Roman', serif;">Password:</label>
+							<input type="password" class="form-control" id="password" name="password" required
+								style="font-family: 'Times New Roman', serif;">
+						</div>
+						<div>
+							<button type="submit" class="btn btn-primary w-100 mb-3"
+								style="font-family: 'Times New Roman', serif;">Register</button>
+						</div>
+						<div>
+							<p class="text-center" style="font-family: 'Times New Roman', serif;">
+								Already have an account?
+								<a href="../pages/login.hbs">Login here</a>
+							</p>
+						</div>
+					</form>
 
 				</div>
 			</div>
