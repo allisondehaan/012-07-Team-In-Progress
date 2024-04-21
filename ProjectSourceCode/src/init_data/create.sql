@@ -19,7 +19,7 @@ CREATE TABLE users(
   firstName VARCHAR(45) NOT NULL,
   lastName VARCHAR(45) NOT NULL,
   --Usercol VARCHAR(45) NOT NULL,
-  idPref INT NOT NULL DEFAULT 2
+  idPref INT NOT NULL DEFAULT 1
 );
 
 

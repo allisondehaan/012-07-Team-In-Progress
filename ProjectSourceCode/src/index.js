@@ -261,13 +261,33 @@ app.get('/logout', (req, res) => {
 });
 
 
+
+/*
+---------------------------------
+Sorting todos Routes
+---------------------------------
+*/
 //This route handles the GET requests for the sorting system.
 //Goal is to receive a specific number, and reuturn all sorted todos based on the format of received number
 //Only return todos which the IDtodo is matched with idUser in the users_to_todo table.
 //Ex. Receives 1, so we sort with soonest todos on top, and farthest on the bottom. Want to pull form table and return list to be displayed onto site.
 app.get('/todos', async (req, res) => {
-	if (req.session.user.idPref == 2) {
-		console.log("Will be used for different search features.");
+	//Will sort todos with farthest eventDate on top. Should save sorting preference with idPref=2
+	if(user.idPref == 2) {
+		const sort = `SELECT * FROM todo 
+		JOIN users_to_todo ON users_to_todo.idTODO = todo.idTODO
+		WHERE users_to_todo.idUSER = $1
+		ORDER BY todo.eventDate DESC`;
+
+		await db.any(sort, user.id)
+			.then(data => {
+				const sortedTodos = data;
+				res.render('partials/todos', {
+					sortedTodos: sortedTodos
+
+				});
+			});
+		return;
 	}
 	else //Will be the deafult sorting with soonest event on top. Will change from 1 to else
 	{
@@ -288,9 +308,32 @@ app.get('/todos', async (req, res) => {
 
 				});
 			});
+		return;
 	}
 	//Need to sort, and then render while passing the returned query results
 	//For inital render, if we want to have stuff, we need to put the default search prior to rendering?
+});
+
+//Will set the idPref to 1 to sort by ascending order. Soonest on top, farthest on bottom.
+app.post('/asc_todo', async (req, res) => {
+	query = `UPDATE users SET idPref = 1 WHERE idUser = $1`;
+	await db.any(query, user.id)
+			.then(data => {
+				user.idPref = 1;
+				res.redirect('/todos');
+			});
+	
+});
+
+//Will set the idPref to 2 to sort by descending order. Farthest on top, soonest on bottom.
+app.post('/desc_todo', async (req, res) => {
+	query = `UPDATE users SET idPref = 2 WHERE idUser = $1`;
+	await db.any(query, user.id)
+			.then(data => {
+				user.idPref = 2;
+				res.redirect('/todos');
+			});
+
 });
 
 

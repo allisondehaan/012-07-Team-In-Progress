@@ -3,6 +3,8 @@
 Corvus111/Brandon:
 Added a login error message if incorrect password is inputted with a correct username
 Added the default sorting system which sorts soonest events first and farthest events last
+Added sort buttons to todos website in todos.hbs
+Added a sort option with farthest events on top and soonest events on bottom
 
 Jamie:
 fixed relative paths for style in header and image in home
