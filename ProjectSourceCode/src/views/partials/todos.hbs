@@ -36,6 +36,15 @@
       {{!-- allows user to create a todo--}}
       <td colspan="6">
         <button onclick="window.location.href='/create_todo'">+</button>
+        {{! Allows the user to choose the sorting veriation}}
+        <form action="/asc_todo" method="POST">
+          <button type="submit">Sort Ascending</button>
+        </form>
+        <form action="/desc_todo" method="POST">
+          <button type="submit">Sort Descending</button>
+        </form>
+        {{! <button onclick="window.location='/asc_todo'"> Sort Ascending </button> }}
+        {{!<button onclick="window.location= '/desc_todo'"> Sort Descending </button>}}
       </td>
 
 
