@@ -20,7 +20,7 @@ h1
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 2px 2px rgb(123, 123, 123);
+    text-shadow: 1px 1px rgb(123, 123, 123);
 }
 
 #titleWIP
