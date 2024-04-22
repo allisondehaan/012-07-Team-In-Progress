@@ -1,6 +1,7 @@
 
 body
 {
+    display: flex;
     font-family: 'Times New Roman', sans-serif;
     background-color: rgb(255, 255, 255);
     padding: 20px;
@@ -82,4 +83,12 @@ h1
 }
 .banner-img {
     width: 100%;
+}
+
+#footer
+{
+    padding-top: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
