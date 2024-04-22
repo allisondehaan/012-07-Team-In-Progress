@@ -266,8 +266,22 @@ app.get('/logout', (req, res) => {
 //Only return todos which the IDtodo is matched with idUser in the users_to_todo table.
 //Ex. Receives 1, so we sort with soonest todos on top, and farthest on the bottom. Want to pull form table and return list to be displayed onto site.
 app.get('/todos', async (req, res) => {
-	if (req.session.user.idPref == 2) {
-		console.log("Will be used for different search features.");
+	//Will sort todos with farthest eventDate on top. Should save sorting preference with idPref=2
+	if (user.idPref == 2) {
+		const sort = `SELECT * FROM todo 
+		JOIN users_to_todo ON users_to_todo.idTODO = todo.idTODO
+		WHERE users_to_todo.idUSER = $1
+		ORDER BY todo.eventDate DESC`;
+
+		await db.any(sort, user.id)
+			.then(data => {
+				const sortedTodos = data;
+				res.render('partials/todos', {
+					sortedTodos: sortedTodos
+
+				});
+			});
+		return;
 	}
 	else //Will be the deafult sorting with soonest event on top. Will change from 1 to else
 	{
@@ -291,6 +305,28 @@ app.get('/todos', async (req, res) => {
 	}
 	//Need to sort, and then render while passing the returned query results
 	//For inital render, if we want to have stuff, we need to put the default search prior to rendering?
+});
+
+//Will set the idPref to 1 to sort by ascending order. Soonest on top, farthest on bottom.
+app.post('/asc_todo', async (req, res) => {
+	query = `UPDATE users SET idPref = 1 WHERE idUser = $1`;
+	await db.any(query, user.id)
+		.then(data => {
+			user.idPref = 1;
+			res.redirect('/todos');
+		});
+
+});
+
+//Will set the idPref to 2 to sort by descending order. Farthest on top, soonest on bottom.
+app.post('/desc_todo', async (req, res) => {
+	query = `UPDATE users SET idPref = 2 WHERE idUser = $1`;
+	await db.any(query, user.id)
+		.then(data => {
+			user.idPref = 2;
+			res.redirect('/todos');
+		});
+
 });
 
 
@@ -416,11 +452,13 @@ app.post('/share-with', async (req, res) => {
 });
 
 
+//redirects to share-todo page
 app.get("/", function (req, res) {
 	res.redirect('/share-todo');
 });
 
 
+//redirects to share, stores the id and evnt name. used for when the user is trying to share a todo
 app.get('/share-todo', function (req, res) {
 	const eventName = req.query.eventName;
 	const idtodo = req.query.id;
@@ -428,9 +466,9 @@ app.get('/share-todo', function (req, res) {
 });
 
 
-
+// will delete the row from share-todo and clear the sql rows
 app.post('/share-complete', async (req, res) => {
-	// will delete the row from todo and user_to_todo
+
 
 	const eventName = req.body.eventName;
 	const queryID = `SELECT idTODO FROM todo WHERE eventTitle = $1 LIMIT 1`;
