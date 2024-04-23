@@ -6,7 +6,7 @@ Added the default sorting system which sorts soonest events first and farthest e
 Added sort buttons to todos website in todos.hbs
 Added a sort option with farthest events on top and soonest events on bottom
 
-Jamie:
+JamieGraves:
 fixed relative paths for style in header and image in home
 fixed extraneous header <html> def and such in page files
 fixed home not redirecting to login when not logged in
