@@ -260,10 +260,6 @@ app.get('/logout', (req, res) => {
 Sorting todos Routes
 ---------------------------------
 */
-//This route handles the GET requests for the sorting system.
-//Goal is to receive a specific number, and reuturn all sorted todos based on the format of received number
-//Only return todos which the IDtodo is matched with idUser in the users_to_todo table.
-//Ex. Receives 1, so we sort with soonest todos on top, and farthest on the bottom. Want to pull form table and return list to be displayed onto site.
 app.get('/todos', async (req, res) => {
 	//Will sort todos with farthest eventDate on top. Should save sorting preference with idPref=2
 	if (user.idPref == 2) {
@@ -498,10 +494,17 @@ app.get("/", function (req, res) {
 	res.redirect('/settings');
 });
 
-
 app.get('/settings', function (req, res) {
-	res.render('pages/settings'); // Pass idtodo and eventName to the rendered view
+	const username = req.session.user.username;
+	console.log("Username:", username);
+	res.render('pages/settings', { username: username });
 });
+
+/*
+---------------------
+date and time formating
+---------------------
+*/
 
 Handlebars.registerHelper('formatDate', function (date) {
 	return (new Date(date)).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
