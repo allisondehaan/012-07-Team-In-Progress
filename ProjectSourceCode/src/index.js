@@ -187,7 +187,6 @@ app.post('/login', async (req, res) => {
 					message: 'Incorrect username or password.',
 				});
 			}
-
 		})
 		.catch(err => {
 			res.status(400);
@@ -218,12 +217,6 @@ app.get('/home', (req, res) => {
 	res.render('pages/home');
 });
 
-// This route handles GET requests to the '/todo' endpoint.
-//Currently have the sorting system rendering the page at the end.
-/*app.get('/todos', (req, res) => {
-	// Render the 'TODOs' template
-	res.render('partials/todos');
-  });*/
 
 // This route handles GET requests to the '/notes' endpoint.
 app.get('/notes', async (req, res) => {
@@ -496,7 +489,31 @@ app.post('/share-complete', async (req, res) => {
 	}
 });
 
+/*
+---------------------------------
+settings Routes
+---------------------------------
+*/
+app.get("/", function (req, res) {
+	res.redirect('/settings');
+});
 
+
+app.get('/settings', function (req, res) {
+	res.render('pages/settings'); // Pass idtodo and eventName to the rendered view
+});
+
+Handlebars.registerHelper('formatDate', function (date) {
+	return (new Date(date)).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+});
+
+Handlebars.registerHelper('formatTime', function (timeString) {
+	const [hours, minutes] = timeString.split(':');
+	let hour = parseInt(hours, 10);
+	let meridiem = hour >= 12 ? 'PM' : 'AM';
+	hour = hour % 12 || 12;
+	return `${hour}:${minutes}${meridiem}`;
+});
 
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');
