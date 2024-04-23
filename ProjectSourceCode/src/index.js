@@ -187,7 +187,6 @@ app.post('/login', async (req, res) => {
 					message: 'Incorrect username or password.',
 				});
 			}
-
 		})
 		.catch(err => {
 			res.status(400);
@@ -218,12 +217,6 @@ app.get('/home', (req, res) => {
 	res.render('pages/home');
 });
 
-// This route handles GET requests to the '/todo' endpoint.
-//Currently have the sorting system rendering the page at the end.
-/*app.get('/todos', (req, res) => {
-	// Render the 'TODOs' template
-	res.render('partials/todos');
-  });*/
 
 // This route handles GET requests to the '/notes' endpoint.
 app.get('/notes', async (req, res) => {
@@ -267,10 +260,6 @@ app.get('/logout', (req, res) => {
 Sorting todos Routes
 ---------------------------------
 */
-//This route handles the GET requests for the sorting system.
-//Goal is to receive a specific number, and reuturn all sorted todos based on the format of received number
-//Only return todos which the IDtodo is matched with idUser in the users_to_todo table.
-//Ex. Receives 1, so we sort with soonest todos on top, and farthest on the bottom. Want to pull form table and return list to be displayed onto site.
 app.get('/todos', async (req, res) => {
 	//Will sort todos with farthest eventDate on top. Should save sorting preference with idPref=2
 	if (user.idPref == 2) {
@@ -496,7 +485,38 @@ app.post('/share-complete', async (req, res) => {
 	}
 });
 
+/*
+---------------------------------
+settings Routes
+---------------------------------
+*/
+app.get("/", function (req, res) {
+	res.redirect('/settings');
+});
 
+app.get('/settings', function (req, res) {
+	const username = req.session.user.username;
+	console.log("Username:", username);
+	res.render('pages/settings', { username: username });
+});
+
+/*
+---------------------
+date and time formating
+---------------------
+*/
+
+Handlebars.registerHelper('formatDate', function (date) {
+	return (new Date(date)).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+});
+
+Handlebars.registerHelper('formatTime', function (timeString) {
+	const [hours, minutes] = timeString.split(':');
+	let hour = parseInt(hours, 10);
+	let meridiem = hour >= 12 ? 'PM' : 'AM';
+	hour = hour % 12 || 12;
+	return `${hour}:${minutes}${meridiem}`;
+});
 
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');
