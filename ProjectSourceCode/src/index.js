@@ -244,7 +244,7 @@ app.get('/notes', async (req, res) => {
 		await db.any(sort, user.id)
 			.then(data => {
 				const sortedTodos = data;
-				res.render('partials/notes', {
+				res.render('pages/notes', {
 					sortedTodos: sortedTodos
 
 				});
@@ -273,7 +273,7 @@ Sorting todos Routes
 //Ex. Receives 1, so we sort with soonest todos on top, and farthest on the bottom. Want to pull form table and return list to be displayed onto site.
 app.get('/todos', async (req, res) => {
 	//Will sort todos with farthest eventDate on top. Should save sorting preference with idPref=2
-	if(user.idPref == 2) {
+	if (user.idPref == 2) {
 		const sort = `SELECT * FROM todo 
 		JOIN users_to_todo ON users_to_todo.idTODO = todo.idTODO
 		WHERE users_to_todo.idUSER = $1
@@ -282,7 +282,7 @@ app.get('/todos', async (req, res) => {
 		await db.any(sort, user.id)
 			.then(data => {
 				const sortedTodos = data;
-				res.render('partials/todos', {
+				res.render('pages/todos', {
 					sortedTodos: sortedTodos
 
 				});
@@ -303,7 +303,7 @@ app.get('/todos', async (req, res) => {
 		await db.any(sort, user.id)
 			.then(data => {
 				const sortedTodos = data;
-				res.render('partials/todos', {
+				res.render('pages/todos', {
 					sortedTodos: sortedTodos
 
 				});
@@ -318,21 +318,21 @@ app.get('/todos', async (req, res) => {
 app.post('/asc_todo', async (req, res) => {
 	query = `UPDATE users SET idPref = 1 WHERE idUser = $1`;
 	await db.any(query, user.id)
-			.then(data => {
-				user.idPref = 1;
-				res.redirect('/todos');
-			});
-	
+		.then(data => {
+			user.idPref = 1;
+			res.redirect('/todos');
+		});
+
 });
 
 //Will set the idPref to 2 to sort by descending order. Farthest on top, soonest on bottom.
 app.post('/desc_todo', async (req, res) => {
 	query = `UPDATE users SET idPref = 2 WHERE idUser = $1`;
 	await db.any(query, user.id)
-			.then(data => {
-				user.idPref = 2;
-				res.redirect('/todos');
-			});
+		.then(data => {
+			user.idPref = 2;
+			res.redirect('/todos');
+		});
 
 });
 
@@ -413,7 +413,7 @@ app.post('/todos-complete', async (req, res) => {
 			res.redirect('/todos');
 		} else {
 			console.log('could not find todo id');
-			res.status(404).render('partials/todos');
+			res.status(404).render('pages/todos');
 		}
 	} catch (error) {
 		console.error('Error deleting todo:', error);
@@ -467,7 +467,7 @@ app.get("/", function (req, res) {
 app.get('/share-todo', function (req, res) {
 	const eventName = req.query.eventName;
 	const idtodo = req.query.id;
-	res.render('partials/share', { idtodo: idtodo, eventName: eventName }); // Pass idtodo and eventName to the rendered view
+	res.render('pages/share', { idtodo: idtodo, eventName: eventName }); // Pass idtodo and eventName to the rendered view
 });
 
 
@@ -488,7 +488,7 @@ app.post('/share-complete', async (req, res) => {
 			res.redirect('/home');
 		} else {
 			console.log('could not find todo id');
-			res.status(404).render('partials/notes');
+			res.status(404).render('pages/notes');
 		}
 	} catch (error) {
 		console.error('Error deleting todo:', error);
