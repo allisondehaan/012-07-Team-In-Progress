@@ -436,14 +436,20 @@ app.post('/share-with', async (req, res) => {
 			let sharedUserID = await db.any(Searchquery, [userSearch]);
 			sharedUserID = sharedUserID[0].iduser;;
 			await db.none(InsertSearch, [parseInt(idTodo), hostID, sharedUserID]);
-			res.render('pages/home');
+			const message = "message sent!";
+			res.redirect('/todos?message=' + encodeURIComponent(message));
+
 		}
 		else {
 			console.log('no user');
+			const message = "message failed to send, user not found";
+			res.redirect('/todos?message=' + encodeURIComponent(message));
 		}
 	}
 	catch (error) {
 		console.log(error);
+		const message = "message failed to send, user not found"; // Define a new variable to hold the message
+		res.redirect('/todos?message=' + encodeURIComponent(message));
 	}
 });
 
