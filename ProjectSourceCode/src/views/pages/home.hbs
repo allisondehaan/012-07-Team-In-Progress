@@ -74,12 +74,12 @@
     <!-- TODO: Include the `title` partial here -->
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col" id="eventTitle_container">
                 <h2>Upcoming To-Dos</h2>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
+                {{#each sortedTodos}}
+                <p style="font-weight: bold; font-size: 17px; line-height: 1.25;">#{{add1 @index}} &rarr; {{this.eventtitle}}</p>
+                <p style="font-size: 14px; line-height: 1;">&nbsp;&nbsp;&nbsp;<b>&middot;</b> {{formatDate this.eventdate}} @ {{formatTime this.eventtime}}</p>
+                {{/each}}
             </div>
             <div class="col">
                 <h2 style="text-align: center;">Work in Progress</h2>

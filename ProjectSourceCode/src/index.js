@@ -212,9 +212,57 @@ app.get('/welcome', (req, res) => {
 });
 
 // This route handles GET requests to the '/home' endpoint.
-app.get('/home', (req, res) => {
-	// Render the 'home' template
-	res.render('pages/home');
+// app.get('/home', (req, res) => {
+// 	// Render the 'home' template
+// 	res.render('pages/home');
+// });
+
+app.get('/home', async (req, res) => {
+	//Will sort todos with farthest eventDate on top. Should save sorting preference with idPref=2
+	if (user.idPref == 2) {
+		const sort = `SELECT * FROM todo 
+		JOIN users_to_todo ON users_to_todo.idTODO = todo.idTODO
+		WHERE users_to_todo.idUSER = $1
+		ORDER BY todo.eventDate DESC`;
+
+		await db.any(sort, user.id)
+			.then(data => {
+				const sortedTodos = data;
+				res.render('pages/home', {
+					sortedTodos: sortedTodos
+
+				});
+			});
+		return;
+	}
+	else //Will be the deafult sorting with soonest event on top. Will change from 1 to else
+	{
+		//query selects all todos which are created by the user and returns them with soonest eventDate
+		//on top and the farthest eventDate on bottom.
+		const sort = `SELECT * FROM todo 
+		JOIN users_to_todo ON users_to_todo.idTODO = todo.idTODO
+		WHERE users_to_todo.idUSER = $1
+		ORDER BY todo.eventDate ASC`;
+
+
+		//Will sort and return sortedTodos which we can parse with handlebars to display
+		await db.any(sort, user.id)
+			.then(data => {
+				const sortedTodos = data;
+				res.render('pages/home', {
+					sortedTodos: sortedTodos
+
+				});
+			});
+		return;
+	}
+	//Need to sort, and then render while passing the returned query results
+	//For inital render, if we want to have stuff, we need to put the default search prior to rendering?
+});
+
+// Function to add 1 for the indexing used on the home page upcoming todos
+Handlebars.registerHelper('add1', function(value) {
+    return value + 1;
 });
 
 
@@ -524,7 +572,7 @@ Handlebars.registerHelper('formatDate', function (date) {
 Handlebars.registerHelper('formatTime', function (timeString) {
 	const [hours, minutes] = timeString.split(':');
 	let hour = parseInt(hours, 10);
-	let meridiem = hour >= 12 ? 'PM' : 'AM';
+	let meridiem = hour >= 12 ? ' PM' : ' AM';
 	hour = hour % 12 || 12;
 	return `${hour}:${minutes}${meridiem}`;
 });
