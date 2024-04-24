@@ -31,3 +31,4 @@ Worked on the index.js file so that the inputs for the create todo form are uplo
 Tested this by using postgres and validating that the inputs for the form are uploaded to the database, which they were. 
 Committed create_todo.hbs and the updated index.js to main.
 Resolved an issue with index.js in app.get('/') that was causing the page to not render. 
+Added functionality to app.get('/home') so that it displays the upcoming todos with sorted indexing by date with the event title, date, and time. 
