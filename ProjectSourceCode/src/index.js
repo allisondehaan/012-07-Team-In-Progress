@@ -213,10 +213,10 @@ app.get('/welcome', (req, res) => {
 });
 
 // This route handles GET requests to the '/home' endpoint.
-app.get('/home', (req, res) => {
-	// Render the 'home' template
-	res.render('pages/home');
-});
+// app.get('/home', (req, res) => {
+// 	// Render the 'home' template
+// 	res.render('pages/home');
+// });
 
 // This route handles GET requests to the '/todo' endpoint.
 //Currently have the sorting system rendering the page at the end.
@@ -281,7 +281,14 @@ app.get('/todos', async (req, res) => {
 
 		await db.any(sort, user.id)
 			.then(data => {
-				const sortedTodos = data;
+				const sortedTodos = data.map(todo => {
+                    // Removing time from date
+                    todo.eventdate = new Date(todo.eventdate).toLocaleDateString();
+					// Changing from military time to standard time
+					todo.eventtime = new Date(`2000-01-01T${todo.eventtime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+                    return todo;
+                });
+				// console.log(sortedTodos);
 				res.render('partials/todos', {
 					sortedTodos: sortedTodos
 
@@ -298,11 +305,19 @@ app.get('/todos', async (req, res) => {
 		WHERE users_to_todo.idUSER = $1
 		ORDER BY todo.eventDate ASC`;
 
-
 		//Will sort and return sortedTodos which we can parse with handlebars to display
 		await db.any(sort, user.id)
 			.then(data => {
-				const sortedTodos = data;
+				// const sortedTodos = data;
+
+				const sortedTodos = data.map(todo => {
+                    // Removing time from date
+                    todo.eventdate = new Date(todo.eventdate).toLocaleDateString();
+					// Changing from military time to standard time
+					todo.eventtime = new Date(`2000-01-01T${todo.eventtime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+                    return todo;
+                });
+				// console.log(sortedTodos);
 				res.render('partials/todos', {
 					sortedTodos: sortedTodos
 
@@ -496,7 +511,64 @@ app.post('/share-complete', async (req, res) => {
 	}
 });
 
+app.get('/home', async (req, res) => {
+	//Will sort todos with farthest eventDate on top. Should save sorting preference with idPref=2
+	if(user.idPref == 2) {
+		const sort = `SELECT * FROM todo 
+		JOIN users_to_todo ON users_to_todo.idTODO = todo.idTODO
+		WHERE users_to_todo.idUSER = $1
+		ORDER BY todo.eventDate DESC`;
 
+		await db.any(sort, user.id)
+			.then(data => {
+				const sortedTodos = data.map(todo => {
+                    // Removing time from date
+                    todo.eventdate = new Date(todo.eventdate).toLocaleDateString();
+					// Changing from military time to standard time
+					todo.eventtime = new Date(`2000-01-01T${todo.eventtime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+                    return todo;
+                });
+				res.render('pages/home', {
+					sortedTodos: sortedTodos
+
+				});
+			});
+		return;
+	}
+	else //Will be the deafult sorting with soonest event on top. Will change from 1 to else
+	{
+		//query selects all todos which are created by the user and returns them with soonest eventDate
+		//on top and the farthest eventDate on bottom.
+		const sort = `SELECT * FROM todo 
+		JOIN users_to_todo ON users_to_todo.idTODO = todo.idTODO
+		WHERE users_to_todo.idUSER = $1
+		ORDER BY todo.eventDate ASC`;
+
+
+		//Will sort and return sortedTodos which we can parse with handlebars to display
+		await db.any(sort, user.id)
+			.then(data => {
+				const sortedTodos = data.map(todo => {
+                    // Removing time from date
+                    todo.eventdate = new Date(todo.eventdate).toLocaleDateString();
+					// Changing from military time to standard time
+					todo.eventtime = new Date(`2000-01-01T${todo.eventtime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+                    return todo;
+                });
+				res.render('pages/home', {
+					sortedTodos: sortedTodos
+
+				});
+			});
+		return;
+	}
+	//Need to sort, and then render while passing the returned query results
+	//For inital render, if we want to have stuff, we need to put the default search prior to rendering?
+});
+
+Handlebars.registerHelper('add1', function(value) {
+    return value + 1;
+});
 
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');
