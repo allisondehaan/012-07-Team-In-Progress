@@ -21,6 +21,29 @@
     }
   </style>
   <link rel="stylesheet" href="../../resources/css/style.css">
+
+
+  <script>
+    function showMessage(message) {
+      alert(message);
+    }
+
+    // This script will be executed when the page is loaded
+    window.onload = function () {
+      // Check if a message parameter is present in the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const message = urlParams.get('message');
+
+      // If a message is present, show it using the showMessage function
+      if (message) {
+        showMessage(message);
+        message = "";
+      }
+    };
+  </script>
+
+
+
 </head>
 
 <body>
