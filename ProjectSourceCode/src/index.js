@@ -261,8 +261,8 @@ app.get('/home', async (req, res) => {
 });
 
 // Function to add 1 for the indexing used on the home page upcoming todos
-Handlebars.registerHelper('add1', function(value) {
-    return value + 1;
+Handlebars.registerHelper('add1', function (value) {
+	return value + 1;
 });
 
 
@@ -422,7 +422,8 @@ app.post('/create_todo', async (req, res) => {
 			INSERT INTO users_to_todo (idTODO, idUser)
 			VALUES ($1, $2)`;
 			await db.none(userToTodoQuery, [idTODO, req.session.user.id]);
-			res.redirect('/todos');
+			const playAudio = "play";
+			res.redirect('/todos?playAudio=' + encodeURIComponent(playAudio));;
 		}
 		else {
 			res.redirect('/todos');
@@ -576,6 +577,8 @@ Handlebars.registerHelper('formatTime', function (timeString) {
 	hour = hour % 12 || 12;
 	return `${hour}:${minutes}${meridiem}`;
 });
+
+
 
 module.exports = app.listen(3000);
 console.log('Server is listening on port 3000');
