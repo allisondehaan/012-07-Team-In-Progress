@@ -219,6 +219,11 @@ app.get('/home', (req, res) => {
 
 
 // This route handles GET requests to the '/notes' endpoint.
+app.get("/", function (req, res) {
+	res.redirect('/notes');
+});
+
+
 app.get('/notes', async (req, res) => {
 	if (req.session.user.idPref == 2) {
 		console.log("Will be used for different search features.");
@@ -480,7 +485,7 @@ app.post('/share-complete', async (req, res) => {
 		if (result) {
 			await db.none(queryDelete, [eventName]);
 			console.log('Todo deleted successfully.');
-			res.redirect('/home');
+			res.redirect('/notes');
 		} else {
 			console.log('could not find todo id');
 			res.status(404).render('pages/notes');

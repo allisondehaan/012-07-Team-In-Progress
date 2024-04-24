@@ -40,6 +40,11 @@
         message = "";
       }
     };
+
+    var deleteSound = new Audio();
+    deleteSound.src = "../../resources/audio/deleteSound.mp3";
+
+
   </script>
 
 
@@ -90,7 +95,7 @@
           <form action="/todos-complete" method="POST">
             <input type="hidden" name="id" value="{{this.idtodo}}">
             <input type="hidden" name="eventName" value="{{this.eventtitle}}">
-            <button type="submit">Mark as Completed</button>
+            <button type="submit" onmousedown="deleteSound.play()">Mark as Completed</button>
           </form>
         </ul>
         <ul>

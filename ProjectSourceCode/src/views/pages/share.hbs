@@ -27,6 +27,12 @@
         }
     </style>
     <link rel="stylesheet" href="../../resources/css/style.css">
+
+    <script>
+        var shareSound = new Audio();
+        shareSound.src = "../../resources/audio/sentSound.mp3"
+
+    </script>
 </head>
 
 
@@ -49,7 +55,7 @@
                 <th>Share with: <input type="text" id="searchBox" name="searchBox" placeholder="search here"></th>
             </tr>
             <tr>
-                <th><input type="submit" value="  Share  "></th>
+                <th><input type="submit" value="  Share  " onmousedown="shareSound.play()"></th>
             </tr>
         </table>
     </form>
