@@ -21,6 +21,11 @@
         }
     </style>
     <link rel="stylesheet" href="../../resources/css/style.css">
+
+    <script>
+        var deleteSound = new Audio();
+        deleteSound.src = "../../resources/audio/deleteSound.mp3";
+    </script>
 </head>
 
 <body>
@@ -56,8 +61,8 @@
         {{#each sortedTodos}}
         <tr>
             <td>{{this.eventtitle}}</td>
-            <td>{{this.eventdate}}</td>
-            <td>{{this.eventtime}}</td>
+            <td>{{formatDate this.eventdate}}</td>
+            <td>{{formatTime this.eventtime}}</td>
             <td>{{this.eventdesc}}</td>
             <td>{{this.eventlocation}}</td>
             <td>
@@ -66,7 +71,7 @@
                     <form action="/share-complete" method="POST">
                         <input type="hidden" name="id" value="{{this.idtodo}}">
                         <input type="hidden" name="eventName" value="{{this.eventtitle}}">
-                        <button type="submit">Remove from shared</button>
+                        <button type="submit" onmousedown="deleteSound.play()">Remove from shared</button>
                     </form>
                 </ul>
                 <ul>
