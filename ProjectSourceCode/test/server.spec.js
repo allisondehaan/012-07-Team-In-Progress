@@ -43,7 +43,9 @@ describe('Server!', () => {
       .post('/register')
       .send({ 
         username: 'johndoe', 
-        password: 'hashedPassword'
+        password: 'hashedPassword',
+        firstName: 'yes',
+        lastName: 'yessington'
         })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -59,7 +61,9 @@ describe('Server!', () => {
         .post('/register')
         .send({
            username: undefined, //Providing no username. Should fail if no username is passed in
-           password: 'hashedPassword'
+           password: 'hashedPassword',
+           firstName: 'yes',
+           lastName: 'yessington'
         })
         .end((err, res) => {
           expect(res).to.have.status(400);
